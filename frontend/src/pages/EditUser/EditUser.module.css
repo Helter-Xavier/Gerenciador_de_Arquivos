@@ -1,0 +1,52 @@
+:root {
+    --cor1:#0F6CBD;
+    --cor2: #fff;
+    --cor3: #ECEDED;
+    --cor4: #4c91ce;
+    --cor5: rgb(174, 183, 212);
+    --cor6: rgb(232, 241, 252);
+    --cor7: #1C2536;
+    --cor8: #475775;
+    --cor9:#0f61a8;
+
+}
+.home{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 80px;
+}
+
+.container{
+    margin-left: 300px;
+}
+
+.container form {
+    background-color: var(--cor2);
+    width: 600px;
+    border-radius: 8px;
+}
+
+.container form label {
+    margin: 10px 45px 0 45px;
+}
+
+.container form label > input {
+    border-radius: 4px;
+    height: 30px;
+    padding-left: 10px;
+    margin-top: 8px;
+}
+
+button.btnCadastrar{
+    display: flex;
+    margin: 15px auto;
+    font-size: 14px;
+    background-color: var(--cor4);
+    color: var(--cor2);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 8px 25px;
+    transition: all .2s ease-in-out;
+}

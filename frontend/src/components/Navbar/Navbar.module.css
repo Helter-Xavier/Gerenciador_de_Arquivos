@@ -1,0 +1,133 @@
+:root {
+    --cor1:#0F6CBD;
+    --cor2: #fff;
+    --cor3: #ECEDED;
+    --cor4: #4c91ce;
+    --cor5: rgb(174, 183, 212);
+    --cor6: rgb(232, 241, 252);
+    --cor7: #1C2536;
+}
+
+.menuContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 20px;
+    background-color: var(--cor6);
+    height: 50px;
+    -webkit-box-shadow: -1px 7px 8px -6px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 7px 8px -6px rgba(0,0,0,0.75);
+    box-shadow: -1px 7px 8px -6px rgba(0,0,0,0.75);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.menuToggle a {
+    color: var(--cor2);
+    font-weight: bold;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+.menuToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menuContainer .toggle {
+    width: 20px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.menuContainer img {
+    width: 40px;
+}
+
+.dropwdown {
+    display: flex;
+    align-items: center;
+}
+
+.dropwdown .menuDropdown {
+    position: relative;
+    left: 85%;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--cor2);
+    color: var(--cor1);
+    cursor: pointer;
+    transition: .2s;
+    
+}
+
+.dropwdown button:hover {
+    color: var(--cor1);
+}
+
+
+.menuDropdown svg {
+    font-size: 1.5rem;
+    color: var(--cor4);
+}
+
+.menuDropdown svg:hover {
+    color: red;
+}
+
+ul {
+    padding: 15px 0;
+}
+
+.listLi, .listLi a {
+    padding-bottom: 7px;
+    list-style: none;
+    width: 140px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    color: var(--cor6);
+}
+
+.listLi:hover {
+    background-color: var(--cor8);
+}
+
+ul {
+    padding: 15px 0;
+}
+
+.listLi {
+    padding-bottom: 7px;
+    list-style: none;
+    width: 140px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    color: var(--cor6);
+}
+
+.listLi:hover {
+    background-color: var(--cor8);
+}
+
+.main.ativo {
+    opacity: 1;
+    visibility: visible;
+}
+
+.main {
+    opacity: 0;
+}

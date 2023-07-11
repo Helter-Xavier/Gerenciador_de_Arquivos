@@ -1,0 +1,22 @@
+:root {
+    --cor1:#0F6CBD;
+    --cor2: #fff;
+    --cor3: #ECEDED;
+    --cor4: #4c91ce;
+    --cor5: rgb(174, 183, 212);
+    --cor6: rgb(232, 241, 252);
+    --cor7: #1C2536;
+    --cor8: #475775;
+    --cor9:#0f61a8;
+
+}
+.arquivo{
+    display: flex;
+    flex-direction: row;
+    margin-top: 80px;
+}
+
+.container{
+    margin-left: 300px;
+}
+

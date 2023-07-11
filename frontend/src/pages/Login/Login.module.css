@@ -1,0 +1,104 @@
+:root {
+    --cor1:#0F6CBD;
+    --cor2: #fff;
+    --cor3: #ECEDED;
+    --cor4: #4c91ce;
+    --cor5: #000;
+    --cor6: rgb(232, 241, 252);
+    --cor7: #1C2536;
+    --cor8: #475775;
+}
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+.loginForm{
+    width: 600px;
+    height: 400px;
+    background-color: var(--cor2);
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 30px solid var(--color7);
+    -webkit-box-shadow: -1px 3px 15px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 3px 15px 1px rgba(0,0,0,0.75);
+    box-shadow: -1px 3px 15px 1px rgba(0,0,0,0.75);
+    border-radius: 8px;
+}
+
+.logoTitle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:var(--cor6);
+    width: 100%;
+    padding: 15px 0;
+    color: var(--cor7);
+    border-bottom: 1px solid var(--cor7);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.logoTitle img {
+    width: 100px;
+}
+
+.logoTitle h1 {
+    font-size: 20px;
+    padding-left: 15px;
+    font-weight: bold;
+    border-bottom: none;
+}
+
+.inputs{
+    display: flex;
+    flex-direction: column;
+    margin-top: 45px;
+}
+
+.inputs label {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+}
+
+.inputs input {
+    margin-top: 5px;
+    width: 250px;
+    height: 22px;
+    outline: none;
+    cursor:text;
+    border: none;
+    border-bottom: 1px solid var(--cor8);
+}
+
+.inputs input:focus {
+    border-bottom: 1px solid var(--cor4);
+}
+
+.btnLogin {
+    margin-top: 15px;
+    font-size: 0.8rem;
+    background-color: var(--cor4);
+    color: var(--cor2);
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    padding: 8px 25px;
+}
+
+.btnLogin:hover {
+    transition: all .2s ease-in-out;
+    background-color: var(--cor1);
+}
+
+.formConta .btnCadastrar:hover {
+    transition: all .2s ease-in-out;
+    background-color: var(--cor1);
+}
