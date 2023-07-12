@@ -2,7 +2,8 @@
 
 ## Funcionalidades do Sistema / Backend
 
-- O Sistema de Gerenciador de Arquivos
+- O Sistema de Gerenciador de Arquivos é para o Armazenamento e Gerenciamento de arquivos do tipo PDF. 
+- Na implementação do sistema foi usado Node.js para a aplicação da API no Backend. O design de banco de dados visual utilizado foi MySQL Workbench. Para a criação da interface foi usado a biblioteca JavaScript de código aberto React. 
 
 ### Setup de ambiente:
 
