@@ -1,7 +1,5 @@
 # Gerenciador de Arquivos
 
-## Link do projeto _[Gerenciador de Arquivos](https://github.com/Helter-Xavier/app-arquivo)_.
-
 ## Funcionalidades do Sistema / Backend
 
 - O Sistema de Gerenciador de Arquivos
@@ -10,10 +8,6 @@
 
 - [Node LTS](https://nodejs.org/en)
 - [Npm 9.5.0](https://docs.npmjs.com/cli/v6/commands/npm-install)
-
-### Estrutura de pastas
-
-![alt text](./pastas.png)
 
 ### Como rodar a API
 
@@ -143,10 +137,6 @@ app.post("/upload-docs", uploadDocs.single("image"), (req, res) => {
 ### Setup de ambiente:
 
 - [React](https://react.dev/)
-
-### Estrutura de pastas
-
-![alt text](./pastaFrontEnd.png)
 
 ### Como criar o projeto
 
