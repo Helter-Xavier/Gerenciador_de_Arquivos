@@ -1,19 +1,16 @@
 # Gerenciador de Arquivos
 
-## Link do projeto _[Gerenciador de Arquivos](https://github.com/Helter-Xavier/app-arquivo)_.
+### Link do projeto no GitHub: _[Gerenciador de Arquivos](https://github.com/Helter-Xavier/Gerenciador_de_Arquivos)_.
 
 ## Funcionalidades do Sistema / Backend
 
-- O Sistema de Gerenciador de Arquivos
+- O Sistema de Gerenciador de Arquivos é para o Armazenamento e Gerenciamento de arquivos do tipo PDF. 
+- Na implementação do sistema foi usado Node.js para a aplicação da API no Backend. O design de banco de dados visual utilizado foi MySQL Workbench. Para a criação da interface foi usado a biblioteca JavaScript de código aberto React. 
 
 ### Setup de ambiente:
 
 - [Node LTS](https://nodejs.org/en)
 - [Npm 9.5.0](https://docs.npmjs.com/cli/v6/commands/npm-install)
-
-### Estrutura de pastas
-
-![alt text](./pastas.png)
 
 ### Como rodar a API
 
@@ -144,10 +141,6 @@ app.post("/upload-docs", uploadDocs.single("image"), (req, res) => {
 
 - [React](https://react.dev/)
 
-### Estrutura de pastas
-
-![alt text](./pastaFrontEnd.png)
-
 ### Como criar o projeto
 
 - _npx create-react-app name-app_
@@ -189,7 +182,7 @@ app.post("/upload-docs", uploadDocs.single("image"), (req, res) => {
 - Home
 - Login -> Privado, somente para usuários autenticados
 - Prontuarios
-- UsersList -> Privado, somente usuários com permissão de Adminstrador e Gerente
+- UsersList -> Privado, somente usuários com permissão de Adminstrador ou Gerente
 - VizualizarDocs
 
 ### API
