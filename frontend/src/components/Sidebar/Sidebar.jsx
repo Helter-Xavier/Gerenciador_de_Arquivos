@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./Sidebar.module.css";
 
@@ -6,11 +6,41 @@ import styles from "./Sidebar.module.css";
 import { FaHome } from "react-icons/fa";
 import { AiFillFilePpt } from "react-icons/ai";
 import { AiOutlineUser } from "react-icons/ai";
+import { BiLogOut } from "react-icons/bi";
 
 import brasao from "../../assets/brasao-Prefeitura.png";
 
+import { AuthContext } from "../../contexts/auth";
+
+import { BsPersonFillGear } from "react-icons/bs";
+
+import ClipLoader from "react-spinners/ClipLoader";
+
+const override = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "4c91ce",
+};
+
 function Sidebar() {
   const [profile, setProfile] = useState({});
+
+  const { logout } = useContext(AuthContext);
+
+  const [loading, setLoading] = useState(true);
+
+  const [color] = useState("#4c91ce");
+
+  const handleLogout = () => {
+    setLoading(!loading);
+
+    const logoutTimer = setTimeout(() => {
+      setLoading(loading);
+      logout();
+    }, 2000);
+
+    return () => clearTimeout(logoutTimer);
+  };
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -24,13 +54,16 @@ function Sidebar() {
           <img src={brasao} alt="Foto de Perfil" width={40} />
         </NavLink>
       </div>
-      <NavLink to="/" className={styles.userName}>
+      <NavLink to={`/perfil/${profile.id}`} className={styles.userName}>
         <h1>{profile.name}</h1>
-        <p>{profile.permissions}</p>
+        <div className="stylesProfile">
+          <p>{profile.permissions}</p>
+          <BsPersonFillGear />
+        </div>
       </NavLink>
 
-      {profile.permissions === "Administrador" ||
-      profile.permissions === "Gerente" ? (
+      {profile.permissions === "ADMINISTRADOR" ||
+      profile.permissions === "SUPERVISOR" ? (
         <>
           <nav>
             <NavLink to="/">
@@ -52,6 +85,11 @@ function Sidebar() {
               <AiFillFilePpt />
               <h1>Documento A</h1>
             </NavLink>
+
+            <NavLink onClick={handleLogout}>
+              <BiLogOut />
+              <h1>Sair</h1>
+            </NavLink>
           </nav>
         </>
       ) : (
@@ -71,20 +109,29 @@ function Sidebar() {
               <AiFillFilePpt />
               <h1>Documento A</h1>
             </NavLink>
+
+            <NavLink onClick={handleLogout}>
+              <BiLogOut />
+              <h1>Sair</h1>
+            </NavLink>
           </nav>
         </>
       )}
-      {/* 
-
-        <NavLink to="/arquivos">
-          <AiFillFilePdf />
-          <h1>Ducumento B</h1>
-        </NavLink>
-
-        <NavLink to="/arquivos">
-          <AiFillFilePdf />
-          <h1>Ducumento C</h1>
-        </NavLink> */}
+      {!loading ? (
+        <div className="loaderLogout">
+          <ClipLoader
+            className="cliploader"
+            color={color}
+            loading={!loading}
+            cssOverride={override}
+            size={40}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

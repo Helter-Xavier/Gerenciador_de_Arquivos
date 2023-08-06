@@ -26,6 +26,7 @@ const Login = () => {
   const [startTimeout, setStartTimeout] = useState(true);
 
   const [loading, setLoading] = useState(true);
+
   const [color] = useState("#4c91ce");
 
   const [isShown, setIsSHown] = useState(false);
@@ -38,7 +39,10 @@ const Login = () => {
     //Integração com o contexto e API
     login(email, password)
       .then(() => {
-        setLoading(loading);
+        const timelogin = setTimeout(() => {
+          setLoading(loading);
+        }, 3000);
+        return () => clearTimeout(timelogin);
       })
       .catch((error) => {
         const msg = error.response.data;
@@ -46,7 +50,13 @@ const Login = () => {
           setStartTimeout(false);
           setMessage(msg);
           setLoading(loading);
-        }, 500);
+        }, 2000);
+
+        const closeMessage = setTimeout(() => {
+          window.location.reload();
+
+          return () => clearTimeout(closeMessage);
+        }, 2500);
 
         return () => clearTimeout(msgTimer);
       });
@@ -61,7 +71,7 @@ const Login = () => {
     <div className={styles.logonFormWrap}>
       <form className={styles.loginForm} onSubmit={handleSubmit}>
         <div className={styles.logoTitle}>
-          {/* <img src={brasao} alt="imagem-logo" /> */}
+          <img src={brasao} alt="imagem-logo" />
           <h1>PREFEITURA MUNICIPAL DE LIMEIRA</h1>
         </div>
         <div className={styles.inputs}>
@@ -102,14 +112,21 @@ const Login = () => {
         </button>
       </form>
 
-      <ClipLoader
-        color={color}
-        loading={!loading}
-        cssOverride={override}
-        size={40}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
+      {!loading ? (
+        <div className="loader">
+          <ClipLoader
+            className="cliploader"
+            color={color}
+            loading={!loading}
+            cssOverride={override}
+            size={40}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </div>
+      ) : (
+        ""
+      )}
 
       {!startTimeout && (
         <span className="message-error">{message.mensagem}</span>

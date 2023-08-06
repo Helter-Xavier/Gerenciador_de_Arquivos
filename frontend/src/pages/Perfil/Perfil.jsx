@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from "react";
-
+//
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import { api } from "../../services/api";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-
-// import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
-import { api } from "../../services/api";
 
 const override = {
   display: "block",
@@ -25,7 +22,6 @@ const schema = yup
       .string()
       .email("Digite um email válido")
       .required("O email é obrigatório"),
-    permissions: yup.string().required("Esse campo é obrigatório"),
     password: yup
       .string()
       .min(6, "A senha deve ter pelo menos 6 digitos")
@@ -37,7 +33,7 @@ const schema = yup
   })
   .required();
 
-const EditUser = () => {
+const Perfil = () => {
   const {
     register,
     handleSubmit,
@@ -46,42 +42,36 @@ const EditUser = () => {
     resolver: yupResolver(schema),
   });
 
-  const [loading, setLoading] = useState(true);
-  const [color] = useState("#4c91ce");
-
-  const [messageFailed, setMessageFailed] = useState("");
-
-  const [message, setMessage] = useState("");
-  const [confirmTimeout, setConfirmTimeout] = useState(true);
-  const [startTimeout, setStartTimeout] = useState(true);
-
-  const [data, setData] = useState({
-    name: "",
-    email: "",
-    permissions: "",
-    password: "",
-  });
-
-  //Navegação entre paginas
-  // const navigation = useNavigate();
-
-  //Armazenando Id em uma constante
   const { id } = useParams();
   const [_id] = useState(id);
 
-  //Puxando dados do usuário selecionado pelo ID
+  const [message, setMessage] = useState("");
+  const [messageFailed, setMessageFailed] = useState("");
+
+  const [confirmTimeout, setConfirmTimeout] = useState(true);
+  const [startTimeout, setStartTimeout] = useState(true);
+
+  const [loading, setLoading] = useState(true);
+
+  const [color] = useState("#4c91ce");
+
+  const [perfil, setPerfil] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
   useEffect(() => {
-    //Usando ID enviado da tabela
-    const getUser = async () => {
+    const getPerfilUser = async () => {
       if (_id === undefined) {
-        setMessage("Erro: Usuário não encontrado");
+        setMessage("Documento não encontrado");
         return;
       }
 
       await api
-        .get(`/visualizar-usuario/${_id}`)
+        .get(`/visualizar-usuario/${id}`)
         .then((response) => {
-          setData(response.data.user);
+          setPerfil(response.data.user);
         })
         .catch((error) => {
           if (error.response) {
@@ -91,7 +81,7 @@ const EditUser = () => {
           }
         });
     };
-    getUser();
+    getPerfilUser();
   });
 
   //Atualizando cadastro do usuário
@@ -146,7 +136,7 @@ const EditUser = () => {
   return (
     <div className="body">
       <div className="container">
-        <h1 className="title-page">ATUALIZAR USUÁRIO</h1>
+        <h1 className="title-page">ATUALIZAR PERFIL</h1>
 
         <div className="border"></div>
 
@@ -162,7 +152,7 @@ const EditUser = () => {
                       className="data-inputs"
                       type="text"
                       name="name"
-                      defaultValue={data.name}
+                      defaultValue={perfil.name}
                       {...register("name", { required: true })}
                     />
                     <span className="errors-req">{errors.name?.message}</span>
@@ -183,52 +173,10 @@ const EditUser = () => {
                       className="data-inputs"
                       type="text"
                       name="email"
-                      defaultValue={data.email}
+                      defaultValue={perfil.email}
                       {...register("email", { required: true })}
                     />
                     <span className="errors-req">{errors.email?.message}</span>
-                  </div>
-                </label>
-              </div>
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <div className="container-basic-1">
-              <h2>ATUALIZAR PERMISSÃO</h2>
-              <div className="container-info-1">
-                <label>
-                  Permissão:
-                  <div>
-                    <select
-                      className="data-inputs"
-                      name="permissions"
-                      defaultValue={data.permissions}
-                      {...register("permissions")}
-                    >
-                      <option value="" disabled={true}>
-                        Selecione...
-                      </option>
-                      <option value="ADMINISTRADOR" disabled={false}>
-                        Administrador
-                      </option>
-                      <option value="SUPERVISOR" disabled={false}>
-                        Supervisor
-                      </option>
-                      <option value="JURIDICO" disabled={false}>
-                        Jurídico
-                      </option>
-                      <option value="RECURSOS HUMANOS" disabled={false}>
-                        Recursos Humanos
-                      </option>
-                      <option value="IPML" disabled={false}>
-                        Instituto de Previdência Municipal de Limeira
-                      </option>
-                    </select>
-
-                    <span className="errors-req">
-                      {errors.permissions?.message}
-                    </span>
                   </div>
                 </label>
               </div>
@@ -249,9 +197,7 @@ const EditUser = () => {
                       placeholder="Digite sua senha"
                       {...register("password", { required: true })}
                     />
-                    <span className="errors-req">
-                      {errors.password?.message}
-                    </span>
+                    <span className="errors-req">{errors.name?.message}</span>
                   </div>
                 </label>
               </div>
@@ -295,15 +241,17 @@ const EditUser = () => {
             ) : (
               ""
             )}
+            {!confirmTimeout && (
+              <span className="message-success">{message}</span>
+            )}
+            {!startTimeout && (
+              <span className="message-error-newdocs">{messageFailed}</span>
+            )}
           </fieldset>
         </form>
-        {!confirmTimeout && <span className="message-success">{message}</span>}
-        {!startTimeout && (
-          <span className="message-error-newdocs">{messageFailed}</span>
-        )}
       </div>
     </div>
   );
 };
 
-export default EditUser;
+export default Perfil;

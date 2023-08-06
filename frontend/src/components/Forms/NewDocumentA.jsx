@@ -5,6 +5,14 @@ import InputMask from "react-input-mask";
 //Import Api
 import { api } from "../../services/api";
 
+import ClipLoader from "react-spinners/ClipLoader";
+
+const override = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "4c91ce",
+};
+
 const NewDocumentA = () => {
   const [documentCode, setDocumentCode] = useState("");
   const [name, setName] = useState("");
@@ -21,8 +29,14 @@ const NewDocumentA = () => {
   const [confirmTimeout, setConfirmTimeout] = useState(true);
   const [startTimeout, setStartTimeout] = useState(true);
 
+  const [loading, setLoading] = useState(true);
+
+  const [color] = useState("#4c91ce");
+
   const uploadFile = async (e) => {
     e.preventDefault();
+
+    setLoading(!loading);
 
     const formData = new FormData();
     formData.append("documentType", selected);
@@ -38,25 +52,37 @@ const NewDocumentA = () => {
       .then((response) => {
         const msgSucess = response.data.mensagem;
 
-        setConfirmTimeout(false);
-        setMessageFailed(msgSucess);
-        window.location.reload();
+        const loadingTimer = setTimeout(() => {
+          setConfirmTimeout(false);
+          setLoading(loading);
+          setMessage(msgSucess);
+        }, 2000);
 
-        const msgTimer = setTimeout(() => {
+        const reload = setTimeout(() => {
           window.location.reload();
-        }, 1000);
-        return () => clearTimeout(msgTimer);
+
+          return () => clearTimeout(reload);
+        }, 2500);
+
+        return () => clearTimeout(loadingTimer);
       })
-      .catch((error) => {
-        const msg = error.response.data.mensagem;
+      .catch((err) => {
+        const loadingTimer = setTimeout(() => {
+          setStartTimeout(false);
+          setLoading(loading);
+          if (err.response) {
+            setMessageFailed(err.response.data.mensagem);
+          } else {
+            setMessageFailed("Erro: Tente novamente mais tarde!");
+          }
+        }, 2000);
 
-        const msgTimer = setStartTimeout(false);
-        setMessage(msg);
-
-        setTimeout(() => {
+        const reload = setTimeout(() => {
           window.location.reload();
-        }, 1500);
-        return () => clearTimeout(msgTimer);
+          return () => clearTimeout(reload);
+        }, 3000);
+
+        return () => clearTimeout(loadingTimer);
       });
   };
 
@@ -161,9 +187,24 @@ const NewDocumentA = () => {
         <button type="submit" className="btnCadastrar" value="Acessar">
           Salvar
         </button>
-        {!startTimeout && <span className="message-error">{message}</span>}
-        {!confirmTimeout && (
-          <span className="message-success">{messageFailed}</span>
+        {!loading ? (
+          <div className="loaderForms">
+            <ClipLoader
+              className="cliploader"
+              color={color}
+              loading={!loading}
+              cssOverride={override}
+              size={40}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          </div>
+        ) : (
+          ""
+        )}
+        {!confirmTimeout && <span className="message-success">{message}</span>}
+        {!startTimeout && (
+          <span className="message-error-newdocs">{messageFailed}</span>
         )}
       </form>
     </div>

@@ -4,7 +4,7 @@ const Sequelize = require('sequelize');
 const db = require("./db");
 
 //Criação da tabela Usuarios no banco de dados
-const Register = db.define('Usuarios', {
+const Register = db.define('Registers', {
     //Coluna campo ID
     id: {
         type: Sequelize.INTEGER, //Int number
@@ -28,7 +28,7 @@ const Register = db.define('Usuarios', {
     // Administrador, Gerente, Juridico, Recursos Humanos, IPML
     permissions: {
         type: Sequelize.ENUM,
-        values: ["Administrador", "Gerente", "juridico", "RH", "IPML"],
+        values: ["ADMINISTRADOR", "SUPERVISOR", "JURIDICO", "RECURSOS HUMANOS", "IPML"],
         allowNull: false,
     },
     //Coluna campo Senha

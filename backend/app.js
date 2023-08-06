@@ -13,6 +13,8 @@ const jwt = require('jsonwebtoken');
 //Upload de arquivos tipo PDF
 const uploadDocs = require('./middleware/uploadImage');
 
+const moveDocs = require('./middleware/moveFile');
+
 const path = require('path');
 //Autenticação do usuário
 const {
@@ -147,6 +149,9 @@ app.get("/visualizar-usuario/:id", async (req, res) => {
     const {
         id
     } = req.params
+
+    // var dados = req.body;
+    // dados.password = 
     //Encontra o usuário selecionado pelo paramentro ID
     const user = await Users.findOne({
         attributes: ['id', 'name', 'email', 'permissions', 'password'],
@@ -175,6 +180,55 @@ app.put("/edit-user/:id", async (req, res) => {
 
     //Pega os dados do usuario
     var dados = req.body;
+    // //Criptografa a Nova Senha
+    dados.password = await bcrypt.hash(dados.password, 6);
+
+    await Users.update()
+        .then(() => {
+            return res.json({
+                mensagem: "Usuário editado com sucesso!"
+            })
+        }).catch(() => {
+            return res.status(400).json({
+                mensagem: "Erro ao editar usuário"
+            })
+        })
+});
+
+app.put("/editPassoword/:id", async (req, res) => {
+    const {
+        id
+    } = req.params;
+
+    //Pega os dados do usuario
+    var dados = req.body;
+    //Criptografa a Nova Senha
+    dados.password = await bcrypt.hash(dados.password, 6);
+
+    await Users.update(dados.password, {
+            where: {
+                id
+            }
+        })
+        .then(() => {
+            return res.json({
+                mensagem: "Senha atualizada com sucesso!"
+            })
+        }).catch(() => {
+            return res.status(400).json({
+                mensagem: "Erro ao atualizar senha"
+            })
+        })
+})
+
+app.put("/editPerfil/:id", async (req, res) => {
+    //receber ID
+    const {
+        id
+    } = req.params;
+
+    //Pega os dados do usuario
+    var dados = req.body;
     //Criptografa a Nova Senha
     dados.password = await bcrypt.hash(dados.password, 6);
 
@@ -185,11 +239,11 @@ app.put("/edit-user/:id", async (req, res) => {
         })
         .then(() => {
             return res.json({
-                mensagem: "Usuário editado com sucesso!"
+                mensagem: "Pefil editado com sucesso!"
             })
         }).catch(() => {
             return res.status(400).json({
-                mensagem: "Erro ao editar usuário"
+                mensagem: "Erro ao editar perfil"
             })
         })
 });
@@ -242,7 +296,7 @@ app.post('/login', async (req, res) => {
     var token = jwt.sign({
         id: user.id
     }, "D62ST92Y7A6V7K5C6W9ZU6W8KS3", {
-        expiresIn: '1d'
+        expiresIn: '1800s'
     });
     //Quando dados do usarios estiverem corretos
     //Login realizado com sucesso
@@ -286,6 +340,35 @@ app.post("/upload-docs", uploadDocs.single('image'), (req, res) => {
     }
 
 });
+
+// , moveDocs
+app.post('/moveDocs/:id', async (req, res) => {
+
+    const {
+        id
+    } = req.params
+
+    const docs = await Docs.findOne({
+            attributes: ['id', 'name', 'documentType', 'documentCode', 'documentRg', 'documentCpf', 'documentDate', 'documentDate',
+                'image', 'createdAt'
+            ],
+            where: {
+                id
+            }
+        })
+
+        .then(() => {
+            return res.json({
+                mensagem: "Enviado para a lixeira",
+            })
+        }).catch(() => {
+            return res.status(400).json({
+                mensagem: "Erro"
+            })
+        })
+
+
+})
 //Rota Listagem dos documetnos
 app.get("/list-files", async (req, res) => {
     //Paginação para implementação na tabela no FRONTEND REACT
@@ -347,8 +430,12 @@ app.get("/list-files", async (req, res) => {
     }
 
 });
+
+//Move Docs
+
+
 //Route View Docs ID
-app.get("/vizualizar-documento/:id", async (req, res) => {
+app.get("/visualizar-documento/:id", async (req, res) => {
     const {
         id
     } = req.params
@@ -423,7 +510,7 @@ app.get("/list-prontuario", async (req, res) => {
     }
     //Filtro selecionando somente os prontuarios armazenados no sistema
     let filteredProntuarios = prontuarios.filter((prontuario) => {
-        return prontuario.documentType === "prontuario"
+        return prontuario.documentType === "PRONTUARIO"
     });
 
     //Link para visualizar o documento
@@ -455,7 +542,7 @@ app.get("/list-documentA", async (req, res) => {
         lastPage = Math.ceil(countUser / limit);
     } else {
         return res.status(400).json({
-            mensagem: "Adicione o primeiro prontuario!"
+            mensagem: "Adicione o primeiro documento"
         });
     }
     //Seleciona todos os documentos cadastrados
@@ -489,7 +576,7 @@ app.get("/list-documentA", async (req, res) => {
     }
     //Filtro selecionando somente os documetA armazenados no sistema
     let filteredDocumentA = documentA.filter((documentA) => {
-        return documentA.documentType === "documentA"
+        return documentA.documentType === "DOCUMENTO A"
     });
     //Link para visualizar o documento
     if (filteredDocumentA) {
@@ -501,7 +588,137 @@ app.get("/list-documentA", async (req, res) => {
     }
     //Retorno dos dados do usuario e paginação
     return res.status(400).json({
-        message: "Nenhum prontuário encontrado"
+        message: "Nenhum documento não encontrado"
+    })
+});
+//Route View only DocumentB
+app.get("/list-documentB", async (req, res) => {
+    //Paginação para implementação na tablela no frontEnd
+    const {
+        page = 1
+    } = req.query;
+
+    const limit = 50;
+    var lastPage = 1;
+
+    const countUser = await Docs.count();
+
+    if (countUser !== 0) {
+        lastPage = Math.ceil(countUser / limit);
+    } else {
+        return res.status(400).json({
+            mensagem: "Adicione o primeiro documento"
+        });
+    }
+    //Seleciona todos os documentos cadastrados
+    const documentB = await Docs.findAll({
+        attributes: ['id', 'name', 'documentType', 'documentCode', 'documentCpf', 'documentDate', 'image', 'createdAt'],
+        order: [
+            ['id',
+                'ASC'
+            ]
+        ],
+        //paginação
+        offset: Number((page * limit) - limit),
+        limit: limit
+    })
+    //Se existir documentos no sistema é feita a paginação
+    if (documentB) {
+        var pagination = {
+            //CAMINHO
+            path: '/list-documentB',
+            //pagina atual
+            page,
+            //pagina anterior
+            prev_page_url: (page) - 1 >= 1 ? page - 1 : false,
+            // proxima pagina
+            next_page_url: Number(page) + Number(1) > lastPage ? false : Number(page) + 1,
+            //Ultima pagina
+            lastPage,
+            //Quantidade total de registros
+            total: countUser
+        }
+    }
+    //Filtro selecionando somente os documetB armazenados no sistema
+    let filteredDocumentB = documentB.filter((documentA) => {
+        return documentA.documentType === "DOCUMENTO B"
+    });
+    //Link para visualizar o documento
+    if (filteredDocumentB) {
+        return res.json({
+            documentA: filteredDocumentB,
+            url: "http://localhost:8080/files/docUsers/",
+            pagination
+        })
+    }
+    //Retorno dos dados do usuario e paginação
+    return res.status(400).json({
+        message: "Nenhum documento não encontrado"
+    })
+});
+//Route View only DocumentC
+app.get("/list-documentC", async (req, res) => {
+    //Paginação para implementação na tablela no frontEnd
+    const {
+        page = 1
+    } = req.query;
+
+    const limit = 50;
+    var lastPage = 1;
+
+    const countUser = await Docs.count();
+
+    if (countUser !== 0) {
+        lastPage = Math.ceil(countUser / limit);
+    } else {
+        return res.status(400).json({
+            mensagem: "Adicione o primeiro documento"
+        });
+    }
+    //Seleciona todos os documentos cadastrados
+    const documentC = await Docs.findAll({
+        attributes: ['id', 'name', 'documentType', 'documentCode', 'documentCpf', 'documentDate', 'image', 'createdAt'],
+        order: [
+            ['id',
+                'ASC'
+            ]
+        ],
+        //paginação
+        offset: Number((page * limit) - limit),
+        limit: limit
+    })
+    //Se existir documentos no sistema é feita a paginação
+    if (documentC) {
+        var pagination = {
+            //CAMINHO
+            path: '/list-documentC',
+            //pagina atual
+            page,
+            //pagina anterior
+            prev_page_url: (page) - 1 >= 1 ? page - 1 : false,
+            // proxima pagina
+            next_page_url: Number(page) + Number(1) > lastPage ? false : Number(page) + 1,
+            //Ultima pagina
+            lastPage,
+            //Quantidade total de registros
+            total: countUser
+        }
+    }
+    //Filtro selecionando somente os documetC armazenados no sistema
+    let filteredDocumentC = documentC.filter((documentA) => {
+        return documentA.documentType === "DOCUMENTO C"
+    });
+    //Link para visualizar o documento
+    if (filteredDocumentC) {
+        return res.json({
+            documentA: filteredDocumentC,
+            url: "http://localhost:8080/files/docUsers/",
+            pagination
+        })
+    }
+    //Retorno dos dados do usuario e paginação
+    return res.status(400).json({
+        message: "Nenhum documento não encontrado"
     })
 });
 //Route Delete Docs
@@ -527,6 +744,6 @@ app.delete("/deleteFiles/:id", async (req, res) => {
 });
 
 //Service port 8080
-app.listen(8080, () => {
+app.listen(8080, eAdmin, () => {
     console.log("Servido iniciado na porta 8080: http://localhost:8080")
 });

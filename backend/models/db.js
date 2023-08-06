@@ -2,7 +2,7 @@
 const Sequelize = require('sequelize');
 
 //Conexão com Bando de Dados  ("nomebd", "usuario", "senha usuario")
-const sequelize = new Sequelize("", "", "", {
+const sequelize = new Sequelize("arquivo", "root", "208199", {
     host: "localhost", //Execcting in localhost
     dialect: "mysql", //
     logging: false

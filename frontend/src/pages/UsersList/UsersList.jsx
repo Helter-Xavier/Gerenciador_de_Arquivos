@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../../components/Navbar/Navbar";
-import Sidebar from "../../components/Sidebar/Sidebar";
-import styles from "./UsersList.module.css";
+
 import TablesUsers from "../../components/Tables/TableUsers/TablesUsers";
 
 import NotAuthorization from "./NotAuthorization";
@@ -15,16 +13,13 @@ const UsersList = () => {
   }, []);
 
   return (
-    <div className={styles.body}>
-      <Navbar />
-      <div className={styles.users}>
-        <Sidebar />
-      </div>
-      <div className={styles.container}>
-        {profile.permissions === "Administrador" && <TablesUsers />}
-        {profile.permissions === "Gerente" && <TablesUsers />}
-        {profile.permissions === "RH" && <NotAuthorization />}
-        {profile.permissions === "Juridico" && <NotAuthorization />}
+    <div className="body">
+      <div className="home"></div>
+      <div className="container">
+        {profile.permissions === "ADMINISTRADOR" && <TablesUsers />}
+        {profile.permissions === "SUPERVISOR" && <TablesUsers />}
+        {profile.permissions === "RECURSOS HUMANOS" && <NotAuthorization />}
+        {profile.permissions === "JURIDICO" && <NotAuthorization />}
         {profile.permissions === "IPML" && <NotAuthorization />}
       </div>
     </div>

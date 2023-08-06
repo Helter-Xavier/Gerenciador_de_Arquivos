@@ -5,8 +5,15 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 import { api } from "../../services/api";
+
+import ClipLoader from "react-spinners/ClipLoader";
+
+const override = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "4c91ce",
+};
 
 const schema = yup
   .object({
@@ -28,11 +35,6 @@ const schema = yup
   .required();
 
 const NewRegister = () => {
-  const [message, setMessage] = useState("");
-  const [startTimeout, setStartTimeout] = useState(true);
-
-  const [selected, setSelected] = useState("");
-
   const {
     register,
     handleSubmit,
@@ -41,36 +43,63 @@ const NewRegister = () => {
     resolver: yupResolver(schema),
   });
 
-  const [isShown, setIsSHown] = useState(false);
+  const [message, setMessage] = useState("");
+  const [messageFailed, setMessageFailed] = useState("");
+
+  const [confirmTimeout, setConfirmTimeout] = useState(true);
+  const [startTimeout, setStartTimeout] = useState(true);
+
+  const [loading, setLoading] = useState(true);
+
+  const [color] = useState("#4c91ce");
+
+  const [selected, setSelected] = useState("");
 
   //Envio de dados para o banco
   const onSubmit = async (data) => {
-    console.log(data);
-
+    // console.log(data);
+    setLoading(!loading);
     await api
       .post("/register", data)
       .then((response) => {
-        //Send Message
-        const msg = response.data.mensagem;
-        //Timer show message
-        const msgTimer = setTimeout(() => {
-          setStartTimeout(false);
-          setMessage(msg);
+        const msgSucess = response.data.mensagem;
+
+        const loadingTimer = setTimeout(() => {
+          setConfirmTimeout(false);
+          setLoading(loading);
+          setMessage(msgSucess);
+        }, 2000);
+
+        const reload = setTimeout(() => {
           window.location.reload();
-        }, 500);
-        return () => clearTimeout(msgTimer);
+
+          return () => clearTimeout(reload);
+        }, 2500);
+
+        return () => clearTimeout(loadingTimer);
       })
-      .catch((erro) => {
-        console.log(erro + "erro");
+      .catch((err) => {
+        const loadingTimer = setTimeout(() => {
+          setStartTimeout(false);
+          setLoading(loading);
+          if (err.response) {
+            setMessageFailed(err.response.data.mensagem);
+          } else {
+            setMessageFailed("Erro: Tente novamente mais tarde!");
+          }
+        }, 2000);
+
+        const reload = setTimeout(() => {
+          window.location.reload();
+          return () => clearTimeout(reload);
+        }, 3000);
+
+        return () => clearTimeout(loadingTimer);
       });
   };
 
   const handleChange = (event) => {
     setSelected(event.target.value);
-  };
-
-  const togglePassword = () => {
-    setIsSHown((isShown) => !isShown);
   };
 
   return (
@@ -87,7 +116,7 @@ const NewRegister = () => {
               placeholder="Nome Completo"
               {...register("name", { required: true })}
             />
-            <span>{errors.name?.message}</span>
+            <span className="errors-req">{errors.name?.message}</span>
           </label>
 
           <label>
@@ -98,12 +127,12 @@ const NewRegister = () => {
               placeholder="E-mail"
               {...register("email", { required: true })}
             />
-            <span>{errors.email?.message}</span>
+            <span className="errors-req">{errors.email?.message}</span>
           </label>
 
-          {/* Role e permissão */}
+          {/* Permissão de acesso */}
           <label>
-            Permissão de Acesso:
+            Permissão de acesso:
             <select
               value={selected}
               {...register("permissions")}
@@ -114,68 +143,73 @@ const NewRegister = () => {
               <option value="" disabled={true}>
                 Selecione...
               </option>
-              <option value="Administrador" disabled={false}>
+              <option value="ADMINISTRADOR" disabled={false}>
                 Administrador
               </option>
-              <option value="Gerente" disabled={false}>
-                Gerente
+              <option value="SUPERVISOR" disabled={false}>
+                Supervisor
               </option>
-              <option value="Juridico" disabled={false}>
+              <option value="JURIDICO" disabled={false}>
                 Jurídico
               </option>
-              <option value="RH" disabled={false}>
+              <option value="RECURSOS HUMANOS" disabled={false}>
                 Recursos Humanos
               </option>
               <option value="IPML" disabled={false}>
                 Instituto de Previdência Municipal de Limeira
               </option>
             </select>
-            <span>{errors.permissions?.message}</span>
+            <span className="errors-req">{errors.permissions?.message}</span>
           </label>
 
           <label>
             Senha:
             <input
-              type={isShown ? "text" : "password"}
+              type="password"
               name="password"
-              placeholder="Senha"
+              placeholder="Digite sua senha"
               {...register("password", { required: true })}
             />
-            <span>{errors.password?.message}</span>
+            <span className="errors-req">{errors.password?.message}</span>
           </label>
 
-          <div
-            className="checkbox-container formRegister"
-            checked={isShown}
-            onClick={togglePassword}
-          >
-            {isShown ? <BsFillEyeFill /> : <BsFillEyeSlashFill />}
-          </div>
-
-          <label className="labelConfirmSenha">
+          <label>
             Confirmar Senha:
             <input
-              type={isShown ? "text" : "password"}
+              type="password"
               name="confirmPassword"
-              placeholder="Digite a senha novamente"
+              placeholder="Digite sua senha novamente"
               {...register("confirmPassword", { required: true })}
             />
-            <span>{errors.confirmPassword?.message}</span>
+            <span className="errors-req">
+              {errors.confirmPassword?.message}
+            </span>
           </label>
-
-          <div
-            className="checkbox-container formRegister"
-            checked={isShown}
-            onClick={togglePassword}
-          >
-            {isShown ? <BsFillEyeFill /> : <BsFillEyeSlashFill />}
-          </div>
         </div>
         <button type="submit" className="btnCadastrar" value="Acessar">
           Cadastrar
         </button>
       </form>
-      {!startTimeout && <span className="message-success">{message}</span>}
+
+      {!loading ? (
+        <div className="loaderForms">
+          <ClipLoader
+            className="cliploader"
+            color={color}
+            loading={!loading}
+            cssOverride={override}
+            size={40}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </div>
+      ) : (
+        ""
+      )}
+      {!confirmTimeout && <span className="message-success">{message}</span>}
+      {!startTimeout && (
+        <span className="message-error-newdocs">{messageFailed}</span>
+      )}
     </div>
   );
 };

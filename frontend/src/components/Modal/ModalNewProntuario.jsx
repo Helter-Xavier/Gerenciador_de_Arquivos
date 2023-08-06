@@ -1,27 +1,30 @@
 import React from "react";
 // Importa a modal do react-modal
 import Modal from "react-modal";
-import { AiOutlineClose, AiOutlineFileAdd } from "react-icons/ai";
-import NewDoc from "../Forms/newDoc";
+import { AiOutlineClose } from "react-icons/ai";
+import NewProntuario from "../Forms/NewProntuario";
 
+// Código necessário para os recursos de acessibilidade
 Modal.setAppElement("#root");
 
-const ModalFirstDocument = () => {
+function ModalNewProntuario() {
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   // Função que abre a modal
   function abrirModal() {
     setIsOpen(true);
   }
+
   // Função que fecha a modal
   function fecharModal() {
     setIsOpen(false);
   }
 
+  // Código JSX necessário para criar uma modal simples que abre e fecha
   return (
     <div>
-      <button onClick={abrirModal} className="ModalFirstDocument">
-        <AiOutlineFileAdd />
+      <button onClick={abrirModal} className="btnOpenModal">
+        Novo Prontuário
       </button>
       <Modal
         className="modalStyle"
@@ -36,10 +39,10 @@ const ModalFirstDocument = () => {
             <AiOutlineClose />
           </button>
         </div>
-        <NewDoc />
+        <NewProntuario />
       </Modal>
     </div>
   );
-};
+}
 
-export default ModalFirstDocument;
+export default ModalNewProntuario;

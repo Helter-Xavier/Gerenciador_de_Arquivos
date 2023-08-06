@@ -6,17 +6,37 @@ import { NavLink } from "react-router-dom";
 //Import img
 import { AiOutlineLogout } from "react-icons/ai";
 //CSS
+
 import styles from "./Navbar.module.css";
-import "./Navbar.css";
+
+import ClipLoader from "react-spinners/ClipLoader";
+
+const override = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "4c91ce",
+};
 
 const Navbar = () => {
   const { logout } = useContext(AuthContext);
 
+  const [loading, setLoading] = useState(true);
+
+  const [color] = useState("#4c91ce");
+
   const handleLogout = () => {
-    logout();
+    setLoading(!loading);
+
+    const logoutTimer = setTimeout(() => {
+      setLoading(loading);
+      logout();
+    }, 2000);
+
+    return () => clearTimeout(logoutTimer);
   };
 
   const dropDownRef = useRef(null);
+
   const [isActive, setIsActive] = useState(false);
   const onClick = () => setIsActive(!isActive);
 
@@ -24,7 +44,6 @@ const Navbar = () => {
     <div>
       <div className={styles.menuContainer}>
         <div className={styles.menuLogo}></div>
-
         <div className={styles.dropwdown}>
           <button onClick={onClick} className={styles.menuDropdown}>
             <AiOutlineLogout />
@@ -43,6 +62,21 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+      {!loading ? (
+        <div className="loader">
+          <ClipLoader
+            className="cliploader"
+            color={color}
+            loading={!loading}
+            cssOverride={override}
+            size={40}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

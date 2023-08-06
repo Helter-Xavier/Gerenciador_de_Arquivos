@@ -12,7 +12,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { BiFileFind, BiTrash } from "react-icons/bi";
 
 import ModalNewDocument from "../../Modal/ModalNewDocument";
-import FirstDocument from "../../Modal/ModalFirstDocument";
+import ModalFirstDocument from "../../Modal/ModalFirstDocument";
 
 const TableDocs = () => {
   const [data, setData] = useState([]);
@@ -27,7 +27,6 @@ const TableDocs = () => {
 
   //Paginação
   const [page, setPage] = useState("");
-
   const [lastPage, setLastPage] = useState("");
 
   const getImages = async (page) => {
@@ -144,8 +143,8 @@ const TableDocs = () => {
                       </span>
                     </td>
 
-                    {profile.permissions === "Administrador" ||
-                    profile.permissions === "Gerente" ? (
+                    {profile.permissions === "ADMINISTRADOR" ||
+                    profile.permissions === "SUPERVISOR" ? (
                       <td className="trash-icon">
                         <button
                           title="APAGAR DOCUMENTO!"
@@ -160,8 +159,8 @@ const TableDocs = () => {
                     )}
 
                     <td className="trash-icon">
-                      <button title="VIZUALIZAR DOCUMENTO!" className="editbtn">
-                        <NavLink to={`/vizualizar-documento/${file.id}`}>
+                      <button title="VISUALIZAR DOCUMENTO!" className="editbtn">
+                        <NavLink to={`/visualizar-documento/${file.id}`}>
                           <BiFileFind />
                         </NavLink>
                       </button>
@@ -173,7 +172,7 @@ const TableDocs = () => {
           <div className="custom">
             {mensagemService ? (
               <button className="message-add">
-                <FirstDocument />
+                <ModalFirstDocument />
                 <p>{mensagemService}</p>
               </button>
             ) : (

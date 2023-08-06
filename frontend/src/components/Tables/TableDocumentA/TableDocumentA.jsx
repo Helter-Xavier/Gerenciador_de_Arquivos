@@ -106,8 +106,8 @@ const TableDocumentA = () => {
               <th className="head-title">Tipo do documento</th>
               <th className="head-title">Documento</th>
               <th className="head-title">Código do documento</th>
+              <th className="head-title">Data</th>
               <th className="head-title">Adicionado em</th>
-              <th className="head-title">Horário</th>
             </tr>
           </thead>
           <tbody className="tbody-Style">
@@ -136,10 +136,12 @@ const TableDocumentA = () => {
                     <Moment format="DD/MM/YYYY">{file.updatedAt}</Moment>
                   </td>
                   <td>
-                    <Moment format=" h:mm">{file.updatedAt}</Moment>
+                    <span>
+                      <Moment format="DD/MM/YYYY">{file.createdAt}</Moment>
+                    </span>
                   </td>
-                  {profile.permissions === "Administrador" ||
-                  profile.permissions === "Gerente" ? (
+                  {profile.permissions === "ADMINISTRADOR" ||
+                  profile.permissions === "SUPERVISOR" ? (
                     <td className="trash-icon">
                       <button
                         title="APAGAR PRONTUÁRIO!"

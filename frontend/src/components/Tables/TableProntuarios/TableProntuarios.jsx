@@ -7,14 +7,14 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { api } from "../../../services/api";
 
-import ModalProntuario from "../../Modal/ModalProntuario";
-import FirstDocument from "../../Modal/ModalFirstDocument";
+import ModalProntuario from "../../Modal/ModalNewProntuario";
 
 import { NavLink } from "react-router-dom";
 
 import { BiFileFind } from "react-icons/bi";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiTrash } from "react-icons/bi";
+import ModalFirstProntuario from "../../Modal/ModalFirstProntuario";
 
 const TableProntuarios = () => {
   const [profile, setProfile] = useState({});
@@ -105,8 +105,8 @@ const TableProntuarios = () => {
               <th className="head-title">Tipo do documento</th>
               <th className="head-title">Documento</th>
               <th className="head-title">Código do documento</th>
+              <th className="head-title">Data</th>
               <th className="head-title">Adicionado em</th>
-              <th className="head-title">Horário</th>
             </tr>
           </thead>
           <tbody className="tbody-Style">
@@ -131,14 +131,19 @@ const TableProntuarios = () => {
                   <td className="trash-icon">
                     <p>{file.documentCode}</p>
                   </td>
+
+                  <td>
+                    <span>
+                      <Moment format="DD/MM/YYYY">{file.createdAt}</Moment>
+                    </span>
+                  </td>
+
                   <td className="trash-icon">
                     <Moment format="DD/MM/YYYY">{file.updatedAt}</Moment>
                   </td>
-                  <td>
-                    <Moment format=" h:mm">{file.updatedAt}</Moment>
-                  </td>
-                  {profile.permissions === "Administrador" ||
-                  profile.permissions === "Gerente" ? (
+
+                  {profile.permissions === "ADMINISTRADOR" ||
+                  profile.permissions === "SUPERVISOR" ? (
                     <td className="trash-icon">
                       <button
                         title="APAGAR PRONTUÁRIO!"
@@ -166,7 +171,7 @@ const TableProntuarios = () => {
         <div className="custom">
           {mensagemService ? (
             <button className="message-add">
-              <FirstDocument />
+              <ModalFirstProntuario />
               <p>{mensagemService}</p>
             </button>
           ) : (

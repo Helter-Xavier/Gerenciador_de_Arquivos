@@ -5,6 +5,14 @@ import InputMask from "react-input-mask";
 //Import Api
 import { api } from "../../services/api";
 
+import ClipLoader from "react-spinners/ClipLoader";
+
+const override = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "4c91ce",
+};
+
 const NewDoc = () => {
   const [documentCode, setDocumentCode] = useState("");
   const [name, setName] = useState("");
@@ -22,8 +30,14 @@ const NewDoc = () => {
   const [confirmTimeout, setConfirmTimeout] = useState(true);
   const [startTimeout, setStartTimeout] = useState(true);
 
+  const [loading, setLoading] = useState(true);
+
+  const [color] = useState("#4c91ce");
+
   const uploadFile = (e) => {
     e.preventDefault();
+
+    setLoading(!loading);
 
     const formData = new FormData();
     formData.append("documentType", selected);
@@ -39,27 +53,37 @@ const NewDoc = () => {
       .then((response) => {
         const msgSucess = response.data.mensagem;
 
-        setConfirmTimeout(false);
-        setMessageFailed(msgSucess);
-        // window.location.reload();
+        const loadingTimer = setTimeout(() => {
+          setConfirmTimeout(false);
+          setLoading(loading);
+          setMessage(msgSucess);
+        }, 2000);
 
-        const msgTimer = setTimeout(() => {
+        const reload = setTimeout(() => {
           window.location.reload();
-        }, 1000);
-        return () => clearTimeout(msgTimer);
+
+          return () => clearTimeout(reload);
+        }, 2500);
+
+        return () => clearTimeout(loadingTimer);
       })
-      .catch((error) => {
-        console.log(error);
-        const msg = error.response.data.mensagem;
-        console.log(error);
+      .catch((err) => {
+        const loadingTimer = setTimeout(() => {
+          setStartTimeout(false);
+          setLoading(loading);
+          if (err.response) {
+            setMessageFailed(err.response.data.mensagem);
+          } else {
+            setMessageFailed("Erro: Tente novamente mais tarde!");
+          }
+        }, 2000);
 
-        const msgTimer = setStartTimeout(false);
-        setMessage(msg);
-
-        setTimeout(() => {
+        const reload = setTimeout(() => {
           window.location.reload();
-        }, 1500);
-        return () => clearTimeout(msgTimer);
+          return () => clearTimeout(reload);
+        }, 3000);
+
+        return () => clearTimeout(loadingTimer);
       });
   };
 
@@ -81,16 +105,16 @@ const NewDoc = () => {
               <option value="" disabled={true}>
                 Selecione...
               </option>
-              <option value="prontuario" disabled={false}>
+              <option value="PRONTUARIO" disabled={false}>
                 Prontuário
               </option>
-              <option value="documentA" disabled={false}>
+              <option value="DOCUMENTO A" disabled={false}>
                 Documento A
               </option>
-              <option value="documentB" disabled={false}>
+              <option value="DOCUMENTO B" disabled={false}>
                 Documento B
               </option>
-              <option value="documentC" disabled={false}>
+              <option value="DOCUMENTO C" disabled={false}>
                 Documento C
               </option>
             </select>
@@ -164,11 +188,27 @@ const NewDoc = () => {
         <button type="submit" className="btnCadastrar" value="Acessar">
           Salvar
         </button>
-        {!startTimeout && <span className="message-error">{message}</span>}
-        {!confirmTimeout && (
-          <span className="message-success">{messageFailed}</span>
-        )}
       </form>
+
+      {!loading ? (
+        <div className="loaderForms">
+          <ClipLoader
+            className="cliploader"
+            color={color}
+            loading={!loading}
+            cssOverride={override}
+            size={40}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </div>
+      ) : (
+        ""
+      )}
+      {!confirmTimeout && <span className="message-success">{message}</span>}
+      {!startTimeout && (
+        <span className="message-error-newdocs">{messageFailed}</span>
+      )}
     </div>
   );
 };
