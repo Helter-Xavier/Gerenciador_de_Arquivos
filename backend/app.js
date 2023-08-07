@@ -183,7 +183,11 @@ app.put("/edit-user/:id", async (req, res) => {
     // //Criptografa a Nova Senha
     dados.password = await bcrypt.hash(dados.password, 6);
 
-    await Users.update()
+    await Users.update(dados.password, {
+        where: {
+            id
+        }
+    })
         .then(() => {
             return res.json({
                 mensagem: "Usuário editado com sucesso!"
