@@ -88,7 +88,7 @@ const TableDocs = () => {
             type="search"
             value={busca}
             onChange={(e) => setBusca(e.target.value)}
-            placeholder="Buscar Usuário"
+            placeholder="Buscar Arquivo"
           />
           <button className="svgIamge">
             <AiOutlineSearch />

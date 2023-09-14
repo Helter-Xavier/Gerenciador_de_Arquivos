@@ -7,7 +7,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
-import ClipLoader from "react-spinners/ClipLoader";
+
+import ClipLoader from "react-spinners/SyncLoader";
 
 const override = {
   display: "block",
@@ -109,7 +110,7 @@ const Perfil = () => {
           window.location.reload();
 
           return () => clearTimeout(reload);
-        }, 2500);
+        }, 3000);
 
         return () => clearTimeout(loadingTimer);
       })
@@ -136,7 +137,7 @@ const Perfil = () => {
   return (
     <div className="body">
       <div className="container">
-        <h1 className="title-page">ATUALIZAR PERFIL</h1>
+        <h1>ATUALIZAR PERFIL</h1>
 
         <div className="border"></div>
 
@@ -241,6 +242,7 @@ const Perfil = () => {
             ) : (
               ""
             )}
+
             {!confirmTimeout && (
               <span className="message-success">{message}</span>
             )}

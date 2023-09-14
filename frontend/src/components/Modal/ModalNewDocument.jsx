@@ -4,6 +4,8 @@ import Modal from "react-modal";
 import { AiOutlineClose } from "react-icons/ai";
 import NewDoc from "../Forms/newDoc";
 
+import accessmemoriespc from "../../assets/upload-na-nuvem.png";
+
 // Código necessário para os recursos de acessibilidade
 Modal.setAppElement("#root");
 
@@ -21,8 +23,9 @@ function ModalNewDocument() {
   //Código JSX necessário para criar uma modal simples que abre e fecha
   return (
     <div>
+      <h2 className="uploadFile">Carregar arquivo:</h2>
       <button onClick={abrirModal} className="btnOpenModal">
-        Novo Arquivo
+        <img src={accessmemoriespc} alt="Foto de Perfil" width={130} />
       </button>
       <Modal
         className="modalStyle"

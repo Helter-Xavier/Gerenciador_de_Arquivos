@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 //Mask
 import InputMask from "react-input-mask";
-
 //Import Api
 import { api } from "../../services/api";
 
@@ -14,13 +13,12 @@ const override = {
   borderColor: "4c91ce",
 };
 
-const NewDoc = () => {
+const NewRecords = () => {
   const [documentCode, setDocumentCode] = useState("");
   const [name, setName] = useState("");
   const [documentCpf, setDocumentCpf] = useState("");
   const [documentRg, setDocumentRg] = useState("");
   const [documentDate, setDocumentDate] = useState("");
-
   const [doc, setDoc] = useState("");
 
   const [selected, setSelected] = useState("");
@@ -34,13 +32,13 @@ const NewDoc = () => {
   const [loading, setLoading] = useState(true);
 
   const [color] = useState("#4c91ce");
-  const uploadFile = (e) => {
+
+  const uploadFile = async (e) => {
     e.preventDefault();
 
     setLoading(!loading);
 
     const formData = new FormData();
-
     formData.append("documentType", selected);
     formData.append("documentCode", documentCode);
     formData.append("name", name);
@@ -49,7 +47,7 @@ const NewDoc = () => {
     formData.append("documentRg", documentRg);
     formData.append("documentDate", documentDate);
 
-    api
+    await api
       .post("/upload-docs", formData)
       .then((response) => {
         const msgSucess = response.data.mensagem;
@@ -91,7 +89,7 @@ const NewDoc = () => {
   return (
     <div>
       <form className="forms" onSubmit={uploadFile}>
-        <h1>Novo Documento</h1>
+        <h1>Novo Prontuário</h1>
         <div className="containerInputs">
           <label>
             Tipo de Documento:
@@ -106,11 +104,17 @@ const NewDoc = () => {
               <option value="" disabled={true}>
                 Selecione...
               </option>
-              <option value="PRONTUARIO" disabled={false}>
+              <option value="prontuario" disabled={false}>
                 Prontuário
               </option>
-              <option value="PROCESSO" disabled={false}>
-                Processo
+              <option value="documentA" disabled={true}>
+                Documento A
+              </option>
+              <option value="documentB" disabled={true}>
+                Documento B
+              </option>
+              <option value="documentC" disabled={true}>
+                Documento C
               </option>
             </select>
           </label>
@@ -183,29 +187,29 @@ const NewDoc = () => {
         <button type="submit" className="btnCadastrar" value="Acessar">
           Salvar
         </button>
-      </form>
 
-      {!loading ? (
-        <div className="loaderForms">
-          <ClipLoader
-            className="cliploader"
-            color={color}
-            loading={!loading}
-            cssOverride={override}
-            size={40}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
-        </div>
-      ) : (
-        ""
-      )}
-      {!confirmTimeout && <span className="message-success">{message}</span>}
-      {!startTimeout && (
-        <span className="message-error-newdocs">{messageFailed}</span>
-      )}
+        {!loading ? (
+          <div className="loaderForms">
+            <ClipLoader
+              className="cliploader"
+              color={color}
+              loading={!loading}
+              cssOverride={override}
+              size={15}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          </div>
+        ) : (
+          ""
+        )}
+        {!confirmTimeout && <span className="message-success">{message}</span>}
+        {!startTimeout && (
+          <span className="message-error-newdocs">{messageFailed}</span>
+        )}
+      </form>
     </div>
   );
 };
 
-export default NewDoc;
+export default NewRecords;

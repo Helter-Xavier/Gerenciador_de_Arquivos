@@ -2,7 +2,7 @@ import React from "react";
 // Importa a modal do react-modal
 import Modal from "react-modal";
 import { AiOutlineClose, AiOutlineFileAdd } from "react-icons/ai";
-import NewProntuario from "../Forms/NewProntuario";
+import NewRecords from "../Forms/NewRecords";
 
 // Código necessário para os recursos de acessibilidade
 Modal.setAppElement("#root");
@@ -39,7 +39,7 @@ function ModalFirstProntuario() {
             <AiOutlineClose />
           </button>
         </div>
-        <NewProntuario />
+        <NewRecords />
       </Modal>
     </div>
   );

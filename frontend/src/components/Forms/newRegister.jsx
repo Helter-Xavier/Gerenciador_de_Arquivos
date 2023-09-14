@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { api } from "../../services/api";
 
-import ClipLoader from "react-spinners/ClipLoader";
+import ClipLoader from "react-spinners/SyncLoader";
 
 const override = {
   display: "block",
@@ -149,14 +149,8 @@ const NewRegister = () => {
               <option value="SUPERVISOR" disabled={false}>
                 Supervisor
               </option>
-              <option value="JURIDICO" disabled={false}>
-                Jurídico
-              </option>
-              <option value="RECURSOS HUMANOS" disabled={false}>
-                Recursos Humanos
-              </option>
-              <option value="IPML" disabled={false}>
-                Instituto de Previdência Municipal de Limeira
+              <option value="USUARIO COMUM" disabled={false}>
+                Usuário Comum
               </option>
             </select>
             <span className="errors-req">{errors.permissions?.message}</span>
@@ -198,7 +192,7 @@ const NewRegister = () => {
             color={color}
             loading={!loading}
             cssOverride={override}
-            size={40}
+            size={15}
             aria-label="Loading Spinner"
             data-testid="loader"
           />

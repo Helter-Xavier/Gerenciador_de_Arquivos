@@ -1,20 +1,23 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
-import styles from "./Sidebar.module.css";
 
 //Import Icons
 import { FaHome } from "react-icons/fa";
-import { AiFillFilePpt } from "react-icons/ai";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineHome } from "react-icons/ai";
+// import { AiOutlineUser } from "react-icons/ai";
+import { FiUser, FiUsers } from "react-icons/fi";
+
 import { BiLogOut } from "react-icons/bi";
 
 import brasao from "../../assets/brasao-Prefeitura.png";
 
 import { AuthContext } from "../../contexts/auth";
 
-import { BsPersonFillGear } from "react-icons/bs";
+import { BsFiles, BsPersonFillGear } from "react-icons/bs";
 
-import ClipLoader from "react-spinners/ClipLoader";
+import { FaBars, FaTimes } from "react-icons/fa";
+
+import ClipLoader from "react-spinners/SyncLoader";
 
 const override = {
   display: "block",
@@ -48,66 +51,92 @@ function Sidebar() {
   }, []);
 
   return (
-    <div className={styles.sidebar}>
-      <div className={styles.container}>
-        <NavLink to="/">
-          <img src={brasao} alt="Foto de Perfil" width={40} />
-        </NavLink>
-      </div>
-      <NavLink to={`/perfil/${profile.id}`} className={styles.userName}>
-        <h1>{profile.name}</h1>
-        <div className="stylesProfile">
-          <p>{profile.permissions}</p>
-          <BsPersonFillGear />
-        </div>
-      </NavLink>
-
+    <div className="sidebar">
       {profile.permissions === "ADMINISTRADOR" ||
       profile.permissions === "SUPERVISOR" ? (
-        <>
+        <header>
           <nav>
             <NavLink to="/">
-              <FaHome />
+              <img
+                className="brasao"
+                src={brasao}
+                alt="Foto de Perfil"
+                width={40}
+              />
+              <h1>Prefeitura de Limeira</h1>
+            </NavLink>
+            <NavLink to={`/perfil/${profile.id}`}>
+              <FiUser />
+              <h1>Perfil</h1>
+            </NavLink>
+
+            <NavLink to="/">
+              <AiOutlineHome />
               <h1>Início</h1>
             </NavLink>
-
-            <NavLink to="/users-list">
-              <AiOutlineUser />
+            <NavLink to="/users-list-system" className="edit-svg">
+              <FiUsers />
               <h1>Lista de Usuários</h1>
             </NavLink>
-
-            <NavLink to="/prontuarios">
-              <AiFillFilePpt />
+            <NavLink to="/list-prontuarios-pdf">
+              <BsFiles />
               <h1>Prontuários</h1>
             </NavLink>
-
-            <NavLink to="/documentA">
-              <AiFillFilePpt />
-              <h1>Documento A</h1>
+            <NavLink to="/docs-process-pdf">
+              <BsFiles />
+              <h1>Processos</h1>
             </NavLink>
-
             <NavLink onClick={handleLogout}>
               <BiLogOut />
               <h1>Sair</h1>
             </NavLink>
+            {/* <button className="nav-btn nav-close-btn" onClick={showNavbar}>
+              <FaTimes />
+            </button> */}
+            <br />
+            <br />
           </nav>
-        </>
+          {/* <button className="nav-btn" onClick={showNavbar}>
+            <FaBars />
+          </button> */}
+          <NavLink to={`/perfil/${profile.id}`} className="userName">
+            <h1>{profile.name}</h1>
+            <div className="stylesProfile">
+              <p>{profile.permissions}</p>
+            </div>
+          </NavLink>
+        </header>
       ) : (
         <>
           <nav>
             <NavLink to="/">
+              <img
+                className="brasao"
+                src={brasao}
+                alt="Foto de Perfil"
+                width={40}
+              />
+              <h1>Prefeitura de Limeira</h1>
+            </NavLink>
+
+            <NavLink to="/">
               <FaHome />
               <h1>Início</h1>
             </NavLink>
 
-            <NavLink to="/prontuarios">
-              <AiFillFilePpt />
+            <NavLink to={`/perfil/${profile.id}`}>
+              <FiUser />
+              <h1>Perfil</h1>
+            </NavLink>
+
+            <NavLink to="/list-prontuarios-pdf">
+              <BsFiles />
               <h1>Prontuários</h1>
             </NavLink>
 
-            <NavLink to="/documentA">
-              <AiFillFilePpt />
-              <h1>Documento A</h1>
+            <NavLink to="/docs-process-pdf">
+              <BsFiles />
+              <h1>Processos</h1>
             </NavLink>
 
             <NavLink onClick={handleLogout}>
@@ -115,8 +144,15 @@ function Sidebar() {
               <h1>Sair</h1>
             </NavLink>
           </nav>
+          <NavLink to={`/perfil/${profile.id}`} className="userName">
+            <h1>{profile.name}</h1>
+            <div className="stylesProfile">
+              <p>{profile.permissions}</p>
+            </div>
+          </NavLink>
         </>
       )}
+
       {!loading ? (
         <div className="loaderLogout">
           <ClipLoader
@@ -124,7 +160,7 @@ function Sidebar() {
             color={color}
             loading={!loading}
             cssOverride={override}
-            size={40}
+            size={15}
             aria-label="Loading Spinner"
             data-testid="loader"
           />

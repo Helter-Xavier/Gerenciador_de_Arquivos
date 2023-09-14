@@ -5,9 +5,10 @@ import brasao from "../../assets/brasao.png";
 import styles from "./Login.module.css";
 
 // import { CSSProperties } from "react";
-import ClipLoader from "react-spinners/ClipLoader";
 import { BsFillEyeFill } from "react-icons/bs";
 import { BsFillEyeSlashFill } from "react-icons/bs";
+
+import ClipLoader from "react-spinners/SyncLoader";
 
 const override = {
   display: "block",
@@ -119,7 +120,7 @@ const Login = () => {
             color={color}
             loading={!loading}
             cssOverride={override}
-            size={40}
+            size={15}
             aria-label="Loading Spinner"
             data-testid="loader"
           />

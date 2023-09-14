@@ -9,7 +9,7 @@ import { AiOutlineLogout } from "react-icons/ai";
 
 import styles from "./Navbar.module.css";
 
-import ClipLoader from "react-spinners/ClipLoader";
+import ClipLoader from "react-spinners/SyncLoader";
 
 const override = {
   display: "block",
@@ -69,7 +69,7 @@ const Navbar = () => {
             color={color}
             loading={!loading}
             cssOverride={override}
-            size={40}
+            size={15}
             aria-label="Loading Spinner"
             data-testid="loader"
           />

@@ -8,12 +8,11 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import EditUser from "./pages/EditUser/[id]";
-import Prontuarios from "./pages/Prontuarios/Prontuarios";
+import Records from "./pages/Records/Records";
 import UsersList from "./pages/UsersList/UsersList";
 import VisualizarDoc from "./pages/VisualizarDocs/VisualizarDoc";
-import DocumentA from "./pages/DocumentA/DocumentA";
+import Process from "./pages/Process/Process";
 import Perfil from "./pages/Perfil/Perfil";
-import Lixeira from "./pages/Lixeira/Lixeira";
 import Navbar from "./components/Navbar/Navbar";
 const AppRoutes = () => {
   // Private pages
@@ -34,18 +33,6 @@ const AppRoutes = () => {
     // React router dom
     <BrowserRouter>
       <AuthProvider>
-        {/* <div className="body">
-          <Private>
-            <Navbar />
-          </Private>
-
-          <div className="home">
-            <Private>
-              <Sidebar />
-            </Private>
-          </div>
-        </div> */}
-
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route
@@ -73,7 +60,7 @@ const AppRoutes = () => {
           />
           <Route
             exact
-            path="/users-list"
+            path="/users-list-system"
             element={
               <Private>
                 <Navbar />
@@ -84,23 +71,23 @@ const AppRoutes = () => {
           />
           <Route
             exact
-            path="/prontuarios"
+            path="/list-prontuarios-pdf"
             element={
               <Private>
                 <Navbar />
                 <Sidebar />
-                <Prontuarios />
+                <Records />
               </Private>
             }
           />
           <Route
             exact
-            path="/documentA"
+            path="/docs-process-pdf"
             element={
               <Private>
                 <Navbar />
                 <Sidebar />
-                <DocumentA />
+                <Process />
               </Private>
             }
           />
@@ -123,17 +110,6 @@ const AppRoutes = () => {
                 <Navbar />
                 <Sidebar />
                 <Perfil />
-              </Private>
-            }
-          />
-          <Route
-            exact
-            path="/lixeira"
-            element={
-              <Private>
-                <Navbar />
-                <Sidebar />
-                <Lixeira />
               </Private>
             }
           />

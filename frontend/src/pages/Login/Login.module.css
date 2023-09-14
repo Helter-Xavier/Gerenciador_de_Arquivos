@@ -3,10 +3,13 @@
     --cor2: #fff;
     --cor3: #ECEDED;
     --cor4: #4c91ce;
-    --cor5: #000;
+    --cor5: rgb(160, 168, 196);
     --cor6: rgb(232, 241, 252);
-    --cor7: #1C2536;
+    --cor7: #181f2e;
     --cor8: #475775;
+    --cor9:#0f61a8;
+    --cor10:#181f2e;
+    --cor11: #738cb9;
 }
 
 *{
@@ -20,12 +23,11 @@
 .loginForm{
     width: 600px;
     height: 400px;
-    background-color: var(--cor2);
+    background-color: var(--cor7);
     margin: 50px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-bottom: 30px solid var(--color7);
     -webkit-box-shadow: -1px 3px 15px 1px rgba(0,0,0,0.75);
     -moz-box-shadow: -1px 3px 15px 1px rgba(0,0,0,0.75);
     box-shadow: -1px 3px 15px 1px rgba(0,0,0,0.75);
@@ -37,10 +39,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color:var(--cor6);
+    background-color:var(--cor11);
     width: 100%;
     padding: 15px 0;
-    color: var(--cor7);
     border-bottom: 1px solid var(--cor7);
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
@@ -53,8 +54,9 @@
 .logoTitle h1 {
     font-size: 20px;
     padding-left: 15px;
-    font-weight: bold;
+    font-weight: 600;
     border-bottom: none;
+    color: var(--cor2);
 }
 
 .inputs{
@@ -67,6 +69,7 @@
     display: flex;
     flex-direction: column;
     margin-top: 5px;
+    color: var(--cor2);
 }
 
 .inputs input {
@@ -76,17 +79,19 @@
     outline: none;
     cursor:text;
     border: none;
-    border-bottom: 1px solid var(--cor8);
+    border-bottom: 1px solid var(--cor2);
+    background-color: var(--cor7);
+    color: var(--cor2);
 }
 
 .inputs input:focus {
-    border-bottom: 1px solid var(--cor4);
+    border-bottom: 1px solid var(--cor11);
 }
 
 .btnLogin {
     margin-top: 15px;
     font-size: 0.8rem;
-    background-color: var(--cor4);
+    background-color: var(--cor11);
     color: var(--cor2);
     border: none;
     border-radius: 16px;
@@ -96,7 +101,7 @@
 
 .btnLogin:hover {
     transition: all .2s ease-in-out;
-    background-color: var(--cor1);
+    background-color: var(--cor4);
 }
 
 .formConta .btnCadastrar:hover {

@@ -105,7 +105,9 @@ const VisualizarDoc = () => {
               <label>
                 Data de nascimento:
                 <div>
-                  <span>{data.documentDate}</span>
+                  <span>
+                    <Moment format="DD/MM/YYYY">{data.documentDate}</Moment>
+                  </span>
                 </div>
               </label>
             </div>

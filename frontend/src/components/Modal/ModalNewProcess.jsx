@@ -2,26 +2,29 @@ import React from "react";
 // Importa a modal do react-modal
 import Modal from "react-modal";
 import { AiOutlineClose } from "react-icons/ai";
-import NewRegister from "../Forms/newRegister";
+import NewProcess from "../Forms/NewProcess";
 
-///compents dropdown
+// Código necessário para os recursos de acessibilidade
 Modal.setAppElement("#root");
 
-function ModalNewRegister() {
+function ModalNewDocumentA() {
   const [modalIsOpen, setIsOpen] = React.useState(false);
+
   // Função que abre a modal
   function abrirModal() {
     setIsOpen(true);
   }
+
   // Função que fecha a modal
   function fecharModal() {
     setIsOpen(false);
   }
+
   // Código JSX necessário para criar uma modal simples que abre e fecha
   return (
     <div>
       <button onClick={abrirModal} className="btnOpen">
-        Adicionar Usuário
+        Adicionar Processo
       </button>
       <Modal
         className="modalStyle"
@@ -36,10 +39,10 @@ function ModalNewRegister() {
             <AiOutlineClose />
           </button>
         </div>
-
-        <NewRegister />
+        <NewProcess />
       </Modal>
     </div>
   );
 }
-export default ModalNewRegister;
+
+export default ModalNewDocumentA;
