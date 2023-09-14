@@ -91,7 +91,7 @@ const NewDoc = () => {
   return (
     <div>
       <form className="forms" onSubmit={uploadFile}>
-        <h1>Novo Documento</h1>
+        <h1>Novo Arquivo</h1>
         <div className="containerInputs">
           <label>
             Tipo de Documento:

@@ -48,7 +48,7 @@ const Navbar = () => {
           <button onClick={onClick} className={styles.menuDropdown}>
             <AiOutlineLogout />
           </button>
-          <div className="container">
+          <div className="container-toggle">
             <nav
               ref={dropDownRef}
               className={`menu ${isActive ? "active" : "inactive"}`}

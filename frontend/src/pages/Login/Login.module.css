@@ -10,6 +10,18 @@
     --cor9:#0f61a8;
     --cor10:#181f2e;
     --cor11: #738cb9;
+
+    --light-mode-collor1: #fff;
+    --light-mode-collor2: #ECEDED;
+    --light-mode-collor3: #e8f1fc;
+    --light-mode-collor4: #a0a8c4;
+    --light-mode-collor5: #475775;
+    --light-mode-collor6: #738cb9;
+    --light-mode-collor7: #4c91ce;
+    --light-mode-collor8: #0F6CBD;
+    --light-mode-collor9: #0f61a8;
+    --light-mode-collor10: #181f2e;
+    --light-mode-collor11: #181f2e;
 }
 
 *{
@@ -23,7 +35,7 @@
 .loginForm{
     width: 600px;
     height: 400px;
-    background-color: var(--cor7);
+    background-color: var(--light-mode-collor3);
     margin: 50px auto;
     display: flex;
     flex-direction: column;
@@ -31,7 +43,7 @@
     -webkit-box-shadow: -1px 3px 15px 1px rgba(0,0,0,0.75);
     -moz-box-shadow: -1px 3px 15px 1px rgba(0,0,0,0.75);
     box-shadow: -1px 3px 15px 1px rgba(0,0,0,0.75);
-    border-radius: 8px;
+    border-radius: 4px;
     position: relative;
 }
 
@@ -43,8 +55,8 @@
     width: 100%;
     padding: 15px 0;
     border-bottom: 1px solid var(--cor7);
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 }
 
 .logoTitle img {
@@ -56,7 +68,7 @@
     padding-left: 15px;
     font-weight: 600;
     border-bottom: none;
-    color: var(--cor2);
+    color: var(--light-mode-collor10);
 }
 
 .inputs{
@@ -69,7 +81,8 @@
     display: flex;
     flex-direction: column;
     margin-top: 5px;
-    color: var(--cor2);
+    color: var(--light-mode-collor10);
+
 }
 
 .inputs input {
@@ -79,20 +92,23 @@
     outline: none;
     cursor:text;
     border: none;
-    border-bottom: 1px solid var(--cor2);
-    background-color: var(--cor7);
-    color: var(--cor2);
+    border-bottom: 1px solid var(--light-mode-collor5);
+    background-color: var(--light-mode-collor3);
+    color: var(--light-mode-collor11);
+}
+.inputs input::placeholder{
+    color: var(--light-mode-collor5);
 }
 
 .inputs input:focus {
-    border-bottom: 1px solid var(--cor11);
+    border-bottom: 1px solid var(--light-mode-collor7);
 }
 
 .btnLogin {
     margin-top: 15px;
     font-size: 0.8rem;
-    background-color: var(--cor11);
-    color: var(--cor2);
+    background-color: var(--light-mode-collor6);
+    color: var(--light-mode-collor1);
     border: none;
     border-radius: 16px;
     cursor: pointer;
@@ -101,7 +117,7 @@
 
 .btnLogin:hover {
     transition: all .2s ease-in-out;
-    background-color: var(--cor4);
+    background-color: var(--light-mode-collor5);
 }
 
 .formConta .btnCadastrar:hover {

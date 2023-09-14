@@ -9,6 +9,7 @@ import * as yup from "yup";
 import axios from "axios";
 
 import ClipLoader from "react-spinners/SyncLoader";
+import { FiUser } from "react-icons/fi";
 
 const override = {
   display: "block",
@@ -137,7 +138,10 @@ const Perfil = () => {
   return (
     <div className="body">
       <div className="container">
-        <h1>ATUALIZAR PERFIL</h1>
+        <div className="title-page">
+          <FiUser />
+          <h1>Perfil do Usuário</h1>
+        </div>
 
         <div className="border"></div>
 

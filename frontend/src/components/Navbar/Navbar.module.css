@@ -1,13 +1,15 @@
 :root {
-    --cor1:#0F6CBD;
-    --cor2: #fff;
-    --cor3: #ECEDED;
-    --cor4: #4c91ce;
-    --cor5: rgb(174, 183, 212);
-    --cor6: rgb(232, 241, 252);
-    --cor7: #1C2536;
-    --cor10:#181f2e;
-
+    --light-mode-collor1: #fff;
+    --light-mode-collor2: #ECEDED;
+    --light-mode-collor3: #e8f1fc;
+    --light-mode-collor4: #aeb7d4;
+    --light-mode-collor5: #475775;
+    --light-mode-collor6: #738cb9;
+    --light-mode-collor7: #4c91ce;
+    --light-mode-collor8: #0F6CBD;
+    --light-mode-collor9: #0f61a8;
+    --light-mode-collor10: #181f2e;
+    --light-mode-collor11: #181f2e;
 }
 
 .menuContainer{
@@ -15,7 +17,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0px 20px;
-    background-color: var(--cor10);
+    background-color: var(--light-mode-collor3);
     height: 50px;
     -webkit-box-shadow: -1px 7px 8px -6px rgba(0,0,0,0.75);
     -moz-box-shadow: -1px 7px 8px -6px rgba(0,0,0,0.75);
@@ -26,7 +28,7 @@
     width: 100%;
 }
 .menuToggle a {
-    color: var(--cor2);
+    color: var(--light-mode-collor1);
     font-weight: bold;
     font-size: 24px;
     text-decoration: none;
@@ -55,26 +57,24 @@
 
 .dropwdown .menuDropdown {
     position: relative;
-    left: 90%;
+    left: 85%;
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 1px solid var(--cor2);
-    background-color: var(--cor2);
-    color: var(--cor1);
+    border: 1px solid var(--light-mode-collor1);
+    background-color: var(--light-mode-collor1);
+    color: var(--light-mode-collor8);
     cursor: pointer;
     transition: .2s;
-    
 }
 
 .dropwdown button:hover {
-    color: var(--cor1);
+    color: var(--light-mode-collor8);
 }
-
 
 .menuDropdown svg {
     font-size: 1.5rem;
-    color: var(--cor4);
+    color: var(--light-mode-collor7);
 }
 
 .menuDropdown svg:hover {
@@ -86,7 +86,6 @@ ul {
 }
 
 .listLi, .listLi a {
-    padding-bottom: 7px;
     list-style: none;
     width: 140px;
     height: 60px;
@@ -96,19 +95,15 @@ ul {
     align-items: center;
     text-align: center;
     cursor: pointer;
-    color: var(--cor6);
+    color: var(--light-mode-collor3);
 }
 
 .listLi:hover {
-    background-color: var(--cor8);
+    background-color: var(--light-mode-collor4);
 }
 
-ul {
-    padding: 15px 0;
-}
 
 .listLi {
-    padding-bottom: 7px;
     list-style: none;
     width: 140px;
     height: 40px;
@@ -118,11 +113,11 @@ ul {
     align-items: center;
     text-align: center;
     cursor: pointer;
-    color: var(--cor6);
+    color: var(--light-mode-collor1);
 }
 
 .listLi:hover {
-    background-color: var(--cor8);
+    background-color: var(--light-mode-collor5);
 }
 
 .main.ativo {

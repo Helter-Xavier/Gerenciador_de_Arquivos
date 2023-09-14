@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { api } from "../../services/api";
 import Moment from "react-moment";
 import FirstDocument from "../../components/Modal/ModalFirstDocument";
+import { AiOutlineFileSearch } from "react-icons/ai";
 
 const VisualizarDoc = () => {
   const [message, setMessage] = useState("");
@@ -52,7 +53,10 @@ const VisualizarDoc = () => {
   return (
     <div className="body">
       <div className="container">
-        <h1 className="title-page">INFORMAÇÕES DO DOCUMENTO</h1>
+        <div className="title-page">
+          <AiOutlineFileSearch />
+          <h1>Informações do Documento</h1>
+        </div>
 
         <div className="border"></div>
 

@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 //Import Icons
 import { FaHome } from "react-icons/fa";
 import { AiOutlineHome } from "react-icons/ai";
-// import { AiOutlineUser } from "react-icons/ai";
 import { FiUser, FiUsers } from "react-icons/fi";
 
 import { BiLogOut } from "react-icons/bi";
@@ -13,9 +12,7 @@ import brasao from "../../assets/brasao-Prefeitura.png";
 
 import { AuthContext } from "../../contexts/auth";
 
-import { BsFiles, BsPersonFillGear } from "react-icons/bs";
-
-import { FaBars, FaTimes } from "react-icons/fa";
+import { BsFiles } from "react-icons/bs";
 
 import ClipLoader from "react-spinners/SyncLoader";
 
@@ -55,6 +52,12 @@ function Sidebar() {
       {profile.permissions === "ADMINISTRADOR" ||
       profile.permissions === "SUPERVISOR" ? (
         <header>
+          <NavLink to={`/perfil/${profile.id}`} className="userName">
+            <h1>{profile.name}</h1>
+            <div className="stylesProfile">
+              <p>{profile.permissions}</p>
+            </div>
+          </NavLink>
           <nav>
             <NavLink to="/">
               <img
@@ -90,21 +93,10 @@ function Sidebar() {
               <BiLogOut />
               <h1>Sair</h1>
             </NavLink>
-            {/* <button className="nav-btn nav-close-btn" onClick={showNavbar}>
-              <FaTimes />
-            </button> */}
+
             <br />
             <br />
           </nav>
-          {/* <button className="nav-btn" onClick={showNavbar}>
-            <FaBars />
-          </button> */}
-          <NavLink to={`/perfil/${profile.id}`} className="userName">
-            <h1>{profile.name}</h1>
-            <div className="stylesProfile">
-              <p>{profile.permissions}</p>
-            </div>
-          </NavLink>
         </header>
       ) : (
         <>

@@ -7,6 +7,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
+import { GrUpdate } from "react-icons/gr";
+
 // import { useNavigate } from "react-router-dom";
 
 import { api } from "../../services/api";
@@ -147,7 +149,10 @@ const EditUser = () => {
   return (
     <div className="body">
       <div className="container">
-        <h1 className="title-page">ATUALIZAR USUÁRIO</h1>
+        <div className="title-page">
+          <GrUpdate />
+          <h1>Atualizar do Usuário</h1>
+        </div>
 
         <div className="border"></div>
 
