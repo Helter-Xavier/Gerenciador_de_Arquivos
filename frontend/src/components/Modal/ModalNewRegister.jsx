@@ -4,6 +4,8 @@ import Modal from "react-modal";
 import { AiOutlineClose } from "react-icons/ai";
 import NewRegister from "../Forms/newRegister";
 
+import newregister from "../../assets/new-register.png";
+
 ///compents dropdown
 Modal.setAppElement("#root");
 
@@ -20,8 +22,9 @@ function ModalNewRegister() {
   // Código JSX necessário para criar uma modal simples que abre e fecha
   return (
     <div>
-      <button onClick={abrirModal} className="btnOpen">
-        Adicionar Usuário
+      <h2 className="uploadFile">Adicionar Usuário:</h2>
+      <button onClick={abrirModal} className="btnOpenModal">
+        <img src={newregister} alt="Foto de Perfil" width={130} />
       </button>
       <Modal
         className="modalStyle"

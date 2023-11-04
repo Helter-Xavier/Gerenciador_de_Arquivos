@@ -5,7 +5,6 @@ import { AiOutlineClose } from "react-icons/ai";
 import NewDoc from "../Forms/newDoc";
 
 import accessmemoriespc from "../../assets/upload-na-nuvem.png";
-
 // Código necessário para os recursos de acessibilidade
 Modal.setAppElement("#root");
 

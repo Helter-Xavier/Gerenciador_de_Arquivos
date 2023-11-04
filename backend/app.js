@@ -11,7 +11,7 @@ const bcrypt = require('bcryptjs');
 //TOKEN JWT que gera quando o usuário acesso o sistema
 const jwt = require('jsonwebtoken');
 //Upload de arquivos tipo PDF
-const uploadDocs = require('./middleware/uploadImage');
+const uploadDocs = require('./middleware/uploadfile');
 
 const path = require('path');
 //Autenticação do usuário
@@ -78,9 +78,15 @@ app.post('/register', async (req, res) => {
                 mensagem: "Usuário cadastrado!",
             });
         }).catch(() => {
+            if (dados.email.includes) {
+                return res.status(400).json({
+                    mensagem: "Esse email já foi cadastrado!"
+                });
+            }
             return res.status(400).json({
                 mensagem: "Erro: Usuário não cadastrado!"
             });
+
         });
 });
 
@@ -251,7 +257,7 @@ app.post('/login', async (req, res) => {
     var token = jwt.sign({
         id: user.id
     }, "D62ST92Y7A6V7K5C6W9ZU6W8KS3", {
-        expiresIn: '1800s'
+        expiresIn: '1d'
     });
     //Quando dados do usarios estiverem corretos
     //Login realizado com sucesso
@@ -274,6 +280,8 @@ app.post("/upload-docs", uploadDocs.single('image'), (req, res) => {
     //Se existir documentos
     //Cria os dados do documento no Banco de Dados
     //É enviado o nome do documento no Banco de Dados
+    var dados = req.body;
+
     if (req.file) {
         Docs.create({
                 name: req.body.name,
@@ -289,15 +297,19 @@ app.post("/upload-docs", uploadDocs.single('image'), (req, res) => {
                     mensagem: "Upload realizado!"
                 })
             }).catch(() => {
+                if (dados.documentCode.includes) {
+                    return res.status(400).json({
+                        mensagem: "O código do documento já existe!"
+                    });
+                }
                 return res.status(400).json({
                     mensagem: "Erro: Upload não realizado!"
                 })
             })
     }
-
 });
 
-//Rota Listagem dos documetnos
+//Listagem dos documetnos
 app.get("/list-files", async (req, res) => {
     //Paginação para implementação na tabela no FRONTEND REACT
     const {
@@ -436,7 +448,7 @@ app.get("/list-prontuario", async (req, res) => {
     }
     //Filtro selecionando somente os prontuarios armazenados no sistema
     let filteredProntuarios = prontuarios.filter((prontuario) => {
-        return prontuario.documentType === "PRONTUARIO"
+        return prontuario.documentType === "prontuario"
     });
 
     //Link para visualizar o documento
@@ -503,7 +515,7 @@ app.get("/list-process", async (req, res) => {
     }
     //Filtro selecionando somente os documetA armazenados no sistema
     let filteredProcess = process.filter((process) => {
-        return process.documentType === "PROCESSO"
+        return process.documentType === "processo"
     });
     //Link para visualizar o documento
     if (filteredProcess) {

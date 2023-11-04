@@ -7,7 +7,6 @@ import styles from "./Login.module.css";
 // import { CSSProperties } from "react";
 import { BsFillEyeFill } from "react-icons/bs";
 import { BsFillEyeSlashFill } from "react-icons/bs";
-
 import ClipLoader from "react-spinners/SyncLoader";
 
 const override = {
@@ -19,17 +18,13 @@ const override = {
 const Login = () => {
   // Resgatadno autenticação e login do AuthContext
   const { login } = useContext(AuthContext);
-
   // Manipulando os states de email e senha
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [startTimeout, setStartTimeout] = useState(true);
-
   const [loading, setLoading] = useState(true);
-
   const [color] = useState("#4c91ce");
-
   const [isShown, setIsSHown] = useState(false);
 
   //Submit do login para entrar no sistema

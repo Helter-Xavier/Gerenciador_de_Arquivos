@@ -14,14 +14,10 @@ import ModalNewRegister from "../../Modal/ModalNewRegister";
 
 const TablesUsers = () => {
   const [user, setUser] = useState([]);
-
   const [busca, setBusca] = useState("");
-
   const [mensagem, setMensagem] = useState("");
-
   //Paginação
   const [page, setPage] = useState("");
-
   const [lastPage, setLastPage] = useState("");
 
   //Lista de Usuários
@@ -94,7 +90,7 @@ const TablesUsers = () => {
             <tr>
               <th className="head-title">Nome</th>
               <th className="head-title">Email</th>
-              <th className="head-title">Permissão</th>
+              <th className="head-title ">Permissão</th>
               <th></th>
             </tr>
           </thead>
@@ -112,7 +108,9 @@ const TablesUsers = () => {
                 <tr key={user.id}>
                   <td className="trash-icon">{user.name}</td>
                   <td className="trash-icon">{user.email}</td>
-                  <td className="trash-icon">{user.permissions}</td>
+                  <td className="trash-icon title-permission">
+                    {user.permissions}
+                  </td>
                   <td className="trash-icon">
                     <button
                       title="Apagar usuário!"

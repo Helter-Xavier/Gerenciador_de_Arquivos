@@ -51,9 +51,7 @@ const EditUser = () => {
 
   const [loading, setLoading] = useState(true);
   const [color] = useState("#4c91ce");
-
   const [messageFailed, setMessageFailed] = useState("");
-
   const [message, setMessage] = useState("");
   const [confirmTimeout, setConfirmTimeout] = useState(true);
   const [startTimeout, setStartTimeout] = useState(true);
@@ -64,9 +62,6 @@ const EditUser = () => {
     permissions: "",
     password: "",
   });
-
-  //Navegação entre paginas
-  // const navigation = useNavigate();
 
   //Armazenando Id em uma constante
   const { id } = useParams();
@@ -151,7 +146,7 @@ const EditUser = () => {
       <div className="container">
         <div className="title-page">
           <GrUpdate />
-          <h1>Atualizar do Usuário</h1>
+          <h1>Atualizar Usuário</h1>
         </div>
 
         <div className="border"></div>

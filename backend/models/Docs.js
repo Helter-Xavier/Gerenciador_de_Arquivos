@@ -20,7 +20,7 @@ const Docs = db.define('docs', {
     //Tipos de documentos que podem ser armazanados
     documentType: {
         type: Sequelize.ENUM,
-        values: ["PRONTUARIO", "PROCESSO"],
+        values: ["prontuario", "processo"],
         allowNull: false,
     },
     //Coluna campo DOCUMENTCODE

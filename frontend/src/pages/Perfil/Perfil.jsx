@@ -26,7 +26,7 @@ const schema = yup
       .required("O email é obrigatório"),
     password: yup
       .string()
-      .min(6, "A senha deve ter pelo menos 6 digitos")
+      .min(8, "A senha deve ter pelo menos 8 dígitos")
       .required("A senha é obrigatório"),
     confirmPassword: yup
       .string()
@@ -46,17 +46,12 @@ const Perfil = () => {
 
   const { id } = useParams();
   const [_id] = useState(id);
-
   const [message, setMessage] = useState("");
   const [messageFailed, setMessageFailed] = useState("");
-
   const [confirmTimeout, setConfirmTimeout] = useState(true);
   const [startTimeout, setStartTimeout] = useState(true);
-
   const [loading, setLoading] = useState(true);
-
   const [color] = useState("#4c91ce");
-
   const [perfil, setPerfil] = useState({
     name: "",
     email: "",
@@ -160,9 +155,11 @@ const Perfil = () => {
                       defaultValue={perfil.name}
                       {...register("name", { required: true })}
                     />
-                    <span className="errors-req">{errors.name?.message}</span>
                   </div>
                 </label>
+                <span className="errors-req error-perfil">
+                  {errors.name?.message}
+                </span>
               </div>
             </div>
           </fieldset>
@@ -181,9 +178,11 @@ const Perfil = () => {
                       defaultValue={perfil.email}
                       {...register("email", { required: true })}
                     />
-                    <span className="errors-req">{errors.email?.message}</span>
                   </div>
                 </label>
+                <span className="errors-req error-perfil">
+                  {errors.email?.message}
+                </span>
               </div>
             </div>
           </fieldset>
@@ -202,9 +201,11 @@ const Perfil = () => {
                       placeholder="Digite sua senha"
                       {...register("password", { required: true })}
                     />
-                    <span className="errors-req">{errors.name?.message}</span>
                   </div>
                 </label>
+                <span className="errors-req error-perfil">
+                  {errors.name?.message}
+                </span>
               </div>
 
               <div className="container-info-1">
@@ -218,11 +219,11 @@ const Perfil = () => {
                       placeholder="Digite sua senha novamente"
                       {...register("confirmPassword", { required: true })}
                     />
-                    <span className="errors-req">
-                      {errors.confirmPassword?.message}
-                    </span>
                   </div>
                 </label>
+                <span className="errors-req error-perfil">
+                  {errors.confirmPassword?.message}
+                </span>
               </div>
             </div>
             <div className="btn-atualizar">

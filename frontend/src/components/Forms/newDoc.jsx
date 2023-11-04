@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 //Mask
 import InputMask from "react-input-mask";
+import { AiOutlineFileSync } from "react-icons/ai";
 
 //Import Api
 import { api } from "../../services/api";
@@ -34,6 +35,8 @@ const NewDoc = () => {
   const [loading, setLoading] = useState(true);
 
   const [color] = useState("#4c91ce");
+
+  // Upload
   const uploadFile = (e) => {
     e.preventDefault();
 
@@ -81,8 +84,9 @@ const NewDoc = () => {
 
         const reload = setTimeout(() => {
           window.location.reload();
+          // setMessageFailed("");
           return () => clearTimeout(reload);
-        }, 3000);
+        }, 4000);
 
         return () => clearTimeout(loadingTimer);
       });
@@ -91,17 +95,20 @@ const NewDoc = () => {
   return (
     <div>
       <form className="forms" onSubmit={uploadFile}>
-        <h1>Novo Arquivo</h1>
+        <div className="title-forms">
+          <AiOutlineFileSync />
+          <h1>Novo Arquivo</h1>
+        </div>
         <div className="containerInputs">
           <label>
             Tipo de Documento:
             <select
               value={selected}
-              required
               name="documentType"
               placeholder="E-mail"
               className="select"
               onChange={(e) => setSelected(e.target.value)}
+              required
             >
               <option value="" disabled={true}>
                 Selecione...
@@ -116,11 +123,14 @@ const NewDoc = () => {
           </label>
 
           <label>
-            Código do documento:
+            <div className="container-key">
+              Código do documento:
+              <div className="prioritary-key">* </div>
+            </div>
             <input
               type="text"
               name="documentCode"
-              placeholder="Código do Documento"
+              placeholder="Código do documento único"
               onChange={(e) => setDocumentCode(e.target.value)}
               required
             />
@@ -145,6 +155,7 @@ const NewDoc = () => {
               name="documentCpf"
               placeholder="CPF"
               onChange={(e) => setDocumentCpf(e.target.value)}
+              required
             />
           </label>
 
@@ -192,7 +203,7 @@ const NewDoc = () => {
             color={color}
             loading={!loading}
             cssOverride={override}
-            size={40}
+            size={15}
             aria-label="Loading Spinner"
             data-testid="loader"
           />
@@ -200,10 +211,22 @@ const NewDoc = () => {
       ) : (
         ""
       )}
-      {!confirmTimeout && <span className="message-success">{message}</span>}
+
+      {!confirmTimeout ? (
+        <span className="message-success">{message}</span>
+      ) : (
+        ""
+      )}
+      {!startTimeout ? (
+        <span className="message-error-newdocs">{messageFailed}</span>
+      ) : (
+        ""
+      )}
+
+      {/* {!confirmTimeout && <span className="message-success">{message}</span>}
       {!startTimeout && (
         <span className="message-error-newdocs">{messageFailed}</span>
-      )}
+      )} */}
     </div>
   );
 };

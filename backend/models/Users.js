@@ -28,7 +28,7 @@ const Register = db.define('Registers', {
     // Administrador, Gerente, Juridico, Recursos Humanos, IPML
     permissions: {
         type: Sequelize.ENUM,
-        values: ["ADMINISTRADOR", "SUPERVISOR", "USUARIO COMUM"],
+        values: ["administrador", "supervisor", "usuario comum"],
         allowNull: false,
     },
     //Coluna campo Senha

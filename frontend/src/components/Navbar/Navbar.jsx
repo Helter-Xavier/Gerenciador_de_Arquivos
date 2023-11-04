@@ -19,11 +19,10 @@ const override = {
 
 const Navbar = () => {
   const { logout } = useContext(AuthContext);
-
   const [loading, setLoading] = useState(true);
-
   const [color] = useState("#4c91ce");
 
+  // Logout
   const handleLogout = () => {
     setLoading(!loading);
 

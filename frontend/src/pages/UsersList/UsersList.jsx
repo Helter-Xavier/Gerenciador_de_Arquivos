@@ -16,9 +16,9 @@ const UsersList = () => {
     <div className="body">
       <div className="home"></div>
       <div className="container">
-        {profile.permissions === "ADMINISTRADOR" && <TablesUsers />}
-        {profile.permissions === "SUPERVISOR" && <TablesUsers />}
-        {profile.permissions === "USUARIO COMUM" && <NotAuthorization />}
+        {profile.permissions === "administrador" && <TablesUsers />}
+        {profile.permissions === "supervisor" && <NotAuthorization />}
+        {profile.permissions === "usuario comum" && <NotAuthorization />}
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import InputMask from "react-input-mask";
 import { api } from "../../services/api";
 
 import ClipLoader from "react-spinners/SyncLoader";
+import { AiOutlineFileSync } from "react-icons/ai";
 
 const override = {
   display: "block",
@@ -20,19 +21,16 @@ const NewRecords = () => {
   const [documentRg, setDocumentRg] = useState("");
   const [documentDate, setDocumentDate] = useState("");
   const [doc, setDoc] = useState("");
-
   const [selected, setSelected] = useState("");
-
   const [message, setMessage] = useState("");
   const [messageFailed, setMessageFailed] = useState("");
-
   const [confirmTimeout, setConfirmTimeout] = useState(true);
   const [startTimeout, setStartTimeout] = useState(true);
-
   const [loading, setLoading] = useState(true);
 
   const [color] = useState("#4c91ce");
 
+  // Upload
   const uploadFile = async (e) => {
     e.preventDefault();
 
@@ -89,7 +87,10 @@ const NewRecords = () => {
   return (
     <div>
       <form className="forms" onSubmit={uploadFile}>
-        <h1>Novo Prontuário</h1>
+        <div className="title-forms">
+          <AiOutlineFileSync />
+          <h1>Novo Prontuário</h1>
+        </div>
         <div className="containerInputs">
           <label>
             Tipo de Documento:
@@ -108,13 +109,7 @@ const NewRecords = () => {
                 Prontuário
               </option>
               <option value="documentA" disabled={true}>
-                Documento A
-              </option>
-              <option value="documentB" disabled={true}>
-                Documento B
-              </option>
-              <option value="documentC" disabled={true}>
-                Documento C
+                Processo
               </option>
             </select>
           </label>

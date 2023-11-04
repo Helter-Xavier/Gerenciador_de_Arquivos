@@ -18,15 +18,11 @@ import ModalFirstProntuario from "../../Modal/ModalFirstProntuario";
 
 const TableRecords = () => {
   const [profile, setProfile] = useState({});
-
   const [data, setData] = useState([]);
   const [url, setUrl] = useState("");
-
   const [busca, setBusca] = useState("");
-
   const [page, setPage] = useState("");
   const [lastPage, setLastPage] = useState("");
-
   const [mensagemService, setMensagemService] = useState("");
   const [mensagem, setMensagem] = useState("");
 
@@ -41,6 +37,7 @@ const TableRecords = () => {
       .get(`/list-prontuario?page=${page}`)
 
       .then((response) => {
+        console.log(response);
         setUrl(response.data.url);
         setData(
           response.data.prontuarios.sort((a, b) => a.name.localeCompare(b.name))
@@ -121,9 +118,9 @@ const TableRecords = () => {
               })
               .map((file) => (
                 <tr key={file.id}>
-                  <td className="trash-icon">{file.name}</td>
-                  <td className="trash-icon">{file.documentType}</td>
-                  <td className="trash-icon">
+                  <td>{file.name}</td>
+                  <td className="title-docs">{file.documentType}</td>
+                  <td>
                     <a href={url + file.image} target="blank">
                       {file.image}
                     </a>
@@ -142,8 +139,8 @@ const TableRecords = () => {
                     <Moment format="DD/MM/YYYY">{file.updatedAt}</Moment>
                   </td>
 
-                  {profile.permissions === "ADMINISTRADOR" ||
-                  profile.permissions === "SUPERVISOR" ? (
+                  {profile.permissions === "administrador" ||
+                  profile.permissions === "supervisor" ? (
                     <td className="trash-icon">
                       <button
                         title="APAGAR PRONTUÁRIO!"

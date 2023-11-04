@@ -122,9 +122,9 @@ const TableProcess = () => {
               })
               .map((file) => (
                 <tr key={file.id}>
-                  <td className="trash-icon">{file.name}</td>
-                  <td className="trash-icon">{file.documentType}</td>
-                  <td className="trash-icon">
+                  <td>{file.name}</td>
+                  <td className="title-docs">{file.documentType}</td>
+                  <td>
                     <a href={url + file.image} target="blank">
                       {file.image}
                     </a>
@@ -140,8 +140,8 @@ const TableProcess = () => {
                       <Moment format="DD/MM/YYYY">{file.createdAt}</Moment>
                     </span>
                   </td>
-                  {profile.permissions === "ADMINISTRADOR" ||
-                  profile.permissions === "SUPERVISOR" ? (
+                  {profile.permissions === "administrador" ||
+                  profile.permissions === "supervisor" ? (
                     <td className="trash-icon">
                       <button
                         title="APAGAR PRONTUÁRIO!"

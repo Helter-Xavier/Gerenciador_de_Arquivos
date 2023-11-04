@@ -8,6 +8,7 @@ import * as yup from "yup";
 import { api } from "../../services/api";
 
 import ClipLoader from "react-spinners/SyncLoader";
+import { AiOutlineUserAdd } from "react-icons/ai";
 
 const override = {
   display: "block",
@@ -25,7 +26,7 @@ const schema = yup
     permissions: yup.string().required("Esse campo é obrigatório"),
     password: yup
       .string()
-      .min(6, "A senha deve ter pelo menos 6 digitos")
+      .min(8, "A senha deve ter pelo menos 8 dígitos")
       .required("A senha é obrigatório"),
     confirmPassword: yup
       .string()
@@ -57,7 +58,7 @@ const NewRegister = () => {
 
   //Envio de dados para o banco
   const onSubmit = async (data) => {
-    // console.log(data);
+    console.log(data);
     setLoading(!loading);
     await api
       .post("/register", data)
@@ -98,6 +99,7 @@ const NewRegister = () => {
       });
   };
 
+  // Select
   const handleChange = (event) => {
     setSelected(event.target.value);
   };
@@ -105,7 +107,10 @@ const NewRegister = () => {
   return (
     <div>
       <form className="forms" onSubmit={handleSubmit(onSubmit)}>
-        <h1>Criar cadastro</h1>
+        <div className="title-forms">
+          <AiOutlineUserAdd />
+          <h1>Adicionar Usuário</h1>
+        </div>
         <div className="containerInputs">
           <label>
             Nome:
@@ -118,9 +123,11 @@ const NewRegister = () => {
             />
             <span className="errors-req">{errors.name?.message}</span>
           </label>
-
           <label>
-            E-mail:
+            <div className="container-key">
+              E-mail:
+              <div className="prioritary-key">* </div>
+            </div>
             <input
               type="text"
               name="email"
@@ -129,27 +136,25 @@ const NewRegister = () => {
             />
             <span className="errors-req">{errors.email?.message}</span>
           </label>
-
           {/* Permissão de acesso */}
           <label>
             Permissão de acesso:
             <select
               value={selected}
               {...register("permissions")}
-              placeholder="E-mail"
               className="select"
               onChange={handleChange}
             >
               <option value="" disabled={true}>
                 Selecione...
               </option>
-              <option value="ADMINISTRADOR" disabled={false}>
+              <option value="administrador" disabled={false}>
                 Administrador
               </option>
-              <option value="SUPERVISOR" disabled={false}>
+              <option value="supervisor" disabled={false}>
                 Supervisor
               </option>
-              <option value="USUARIO COMUM" disabled={false}>
+              <option value="usuario comum" disabled={false}>
                 Usuário Comum
               </option>
             </select>
@@ -161,12 +166,11 @@ const NewRegister = () => {
             <input
               type="password"
               name="password"
-              placeholder="Digite sua senha"
+              placeholder="A senha deve ter no mínimo 8 dígitos"
               {...register("password", { required: true })}
             />
             <span className="errors-req">{errors.password?.message}</span>
           </label>
-
           <label>
             Confirmar Senha:
             <input
